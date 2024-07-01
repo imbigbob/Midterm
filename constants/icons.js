@@ -8,13 +8,15 @@ import Loading from "../assets/icons/Loading.png"
 import Plane from "../assets/icons/Plane.png"
 import Event from "../assets/icons/Event.png"
 import Hotel from "../assets/icons/Hotel.png"
-import Earth from "../assets/icons/Earth.png"   
+import Earth from "../assets/icons/Earth.png"
 import CardTransports from "../assets/icons/Card.png"
 import CardHotels from "../assets/icons/CardHotel.png"
 import Baby from "../assets/icons/Baby.png"
 import Pet from "../assets/icons/Pet.png"
 import Luggage from "../assets/icons/Luggage.png"
 import People from "../assets/icons/People.png"
+import rightA from "../assets/icons/right.png"
+import leftA from "../assets/icons/left.png"
     ;
 
 export default {
@@ -33,11 +35,14 @@ export default {
 
     CardTransports,
     CardHotels,
-    
+
+    rightA,
+    leftA,
+
     Baby,
     Pet,
     Luggage,
     People,
-    
+
     location,
 };
