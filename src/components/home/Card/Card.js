@@ -12,6 +12,8 @@ const Card = () => {
         <TouchableOpacity onPress={() => navigation.navigate('Transport Booking')}>
           <Image style={styles.card} source={icons.CardTransports} />
         </TouchableOpacity>
+        <Image style={styles.card} source={icons.CardEvents} />
+        <Image style={styles.card} source={icons.CardTrips} />
       </View>
     </ScrollView>
   );

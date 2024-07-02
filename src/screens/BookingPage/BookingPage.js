@@ -11,18 +11,18 @@ const BookingPage = () => {
 
   return (
     <View style={{ flex: 1 }}>
-<View style={{ flex: 1, backgroundColor: 'white' }}>
-  <Text style={{ fontSize: 30, textAlign: 'center', marginTop: '10%' }}>Booking</Text>
-</View>
-<View style={{ flex: 9 }}>
-  <Card />
-  </View>
+      <View style={{ flex: 1, backgroundColor: 'white' }}>
+        <Text style={{ fontSize: 30, textAlign: 'center', marginTop: '10%' }}>Booking</Text>
+      </View>
+      <View style={{ flex: 9 }}>
+        <Card />
+      </View>
 
 
-        <View style={{ flex: 1, backgroundColor: 'white', borderRadius: 30, marginBottom: '1%' }}>
-          <NavigatePage />
-        </View>
-   
+      <View style={{ flex: 1, backgroundColor: 'white', borderRadius: 30, marginBottom: '1%' }}>
+        <NavigatePage />
+      </View>
+
     </View>
   );
 };
