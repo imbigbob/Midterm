@@ -2,22 +2,23 @@ import React from 'react';
 import { Image, View, TextInput, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { COLORS, icons, SIZES, FONT, SHADOWS } from "../../../constants";
 import { useNavigation } from '@react-navigation/native';
-import DateTimePicker from '@react-native-community/datetimepicker';
+
 
 import NumberPicker from "../../components/home/Order/Order";
 import FlightBooking from "../../components/home/Stage/Stage";
 import DateRangePicker from "../../components/home/Date/Date";
-
+import ClassPicker from "../../components/home/Class/Class"; 
 const TransportPage = () => {
   const navigation = useNavigation();
   const [departure, setFrom] = React.useState('New York');
   const [destination, setTo] = React.useState('Los Angeles');
   const [startDate, setStartDate] = React.useState(new Date());
   const [endDate, setEndDate] = React.useState(new Date());
-  const [people, setPeople] = React.useState(0);
-  const [baby, setBaby] = React.useState(0);
-  const [pet, setPet] = React.useState(0);
-  const [luggage, setLuggage] = React.useState(0);
+  const [people, setPeople] = React.useState();
+  const [baby, setBaby] = React.useState();
+  const [pet, setPet] = React.useState();
+  const [luggage, setLuggage] = React.useState();
+  const [selectedClass, setSelectedClass] = React.useState();
 
   return (
     <View style={{ flex: 1 }}>
@@ -28,7 +29,8 @@ const TransportPage = () => {
           destination={destination}
           setDestination={setTo}
         />
-      </View>
+        </View>
+
       <View style={{ flex: 1, flexDirection: 'row' }}>
         <DateRangePicker 
           startDate={startDate} 
@@ -37,6 +39,7 @@ const TransportPage = () => {
           setEndDate={setEndDate} 
         />
       </View>
+
       <View style={{ flex: 1, flexDirection: 'row' }}>
         <NumberPicker
           values="People"
@@ -59,6 +62,12 @@ const TransportPage = () => {
           setSelectedNumber={setLuggage}
         />
       </View>
+      <View style={{ flex: 1 }}>
+      <ClassPicker values={['Economy', 'Business', 'First Class']}
+      selectedClass={selectedClass}
+        setSelectedClass={setSelectedClass}
+       />
+       </View>
     </View>
   );
 };

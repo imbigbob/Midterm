@@ -19,7 +19,12 @@ const DateRangePicker = ({ startDate, endDate, setStartDate, setEndDate }) => {
       setEndDate(selectedDate);
     }
   };
-
+   
+  const checkDate = () => {
+    if (startDate > endDate) {
+      alert('End date must be after start date');
+    }
+  };
   return (
     <View style={styles.container}>
       <View style={styles.dateContainer}>
@@ -57,11 +62,15 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
-    padding: 16,
+    alignItems: 'flex-between',
+    flexDirection: 'row',
+
   },
   dateContainer: {
-    marginBottom: 16,
+    marginBottom: '3%',
+    marginLeft: '5%',
+    marginRight: '5%',
+    minWidth: '40%',
   },
   button: {
     padding: 10,

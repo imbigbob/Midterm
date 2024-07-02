@@ -1,39 +1,59 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, Image, Modal, FlatList, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, Image, Modal, TextInput, StyleSheet } from 'react-native';
 import { COLORS, SIZES, icons } from "../../../../constants";
 
 const NumberPicker = ({ values, selectedNumber, setSelectedNumber }) => {
   const [modalVisible, setModalVisible] = useState(false);
+  const [inputValue, setInputValue] = useState('');
 
-  const renderItem = ({ item }) => (
-    <TouchableOpacity
-      style={styles.listItem}
-      onPress={() => {
-        setSelectedNumber(item);
-        setModalVisible(false);
-      }}
-    >
-      <Text style={styles.listItemText}>{item}</Text>
-    </TouchableOpacity>
-  );
+  const handleInputChange = (text) => {
+    const number = parseInt(text, 10);
+    if (!isNaN(number) && number > 0 && values === 'People') {
+      setInputValue(text);
+    } 
+    else if (!isNaN(number) && number >= 0 && values !== 'People') {
+      setInputValue(text);
+    } 
+    else {
+      setInputValue('');
+    }
+  };
 
-  const numbers = Array.from({ length: 100 }, (_, i) => i + 1); // Adjust the length as needed
+  const handleSubmit = () => {
+    const number = parseInt(inputValue, 10);
+    if ((values === 'People' && number > 0) || (values !== 'People' && number >= 0)) {
+      setSelectedNumber(number);
+      setModalVisible(false);
+    } else {
+      alert('Invalid input. Please enter a valid number.');
+    }
+  };
 
   return (
     <View style={styles.container}>
       <TouchableOpacity style={styles.button} onPress={() => setModalVisible(true)}>
         <Image source={icons[values]} style={styles.buttonImage} />
-        {selectedNumber !== 0 && <Text style={styles.selectedNumber}>{selectedNumber}</Text>}
+        {selectedNumber !== 0 || values !== 'People' ? (
+          <Text style={styles.selectedNumber}>{selectedNumber}</Text>
+        ) : (
+          <Text style={styles.selectedNumber}>0</Text>
+        )}
       </TouchableOpacity>
 
       <Modal visible={modalVisible} transparent={true} animationType="slide">
         <View style={styles.modalContainer}>
-          <FlatList
-            data={numbers}
-            keyExtractor={(item) => item.toString()}
-            renderItem={renderItem}
-            style={styles.list}
-          />
+          <View style={styles.modalContent}>
+            <Text style={styles.modalTitle}>Enter Number</Text>
+            <TextInput
+              style={styles.input}
+              keyboardType="numeric"
+              value={inputValue}
+              onChangeText={handleInputChange}
+            />
+            <TouchableOpacity style={styles.submitButton} onPress={handleSubmit}>
+              <Text style={styles.submitButtonText}>Submit</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </Modal>
     </View>
@@ -64,18 +84,34 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
   },
-  list: {
+  modalContent: {
     backgroundColor: 'white',
-    width: '80%',
-    maxHeight: '80%',
-  },
-  listItem: {
     padding: 20,
-    borderBottomWidth: 1,
-    borderBottomColor: '#ccc',
+    borderRadius: 10,
+    width: '80%',
+    alignItems: 'center',
   },
-  listItemText: {
+  modalTitle: {
     fontSize: 18,
+    marginBottom: 20,
+  },
+  input: {
+    width: '100%',
+    padding: 10,
+    borderColor: '#ccc',
+    borderWidth: 1,
+    borderRadius: 5,
+    marginBottom: 20,
+    textAlign: 'center',
+  },
+  submitButton: {
+    backgroundColor: COLORS.primary,
+    padding: 10,
+    borderRadius: 5,
+  },
+  submitButtonText: {
+    color: 'white',
+    fontSize: 16,
   },
 });
 
