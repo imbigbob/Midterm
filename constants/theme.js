@@ -8,8 +8,8 @@ const COLORS = {
 
   white: "#F3F4F8",
   lightWhite: "#FAFAFC",
- green:"#089083",
-
+  green: "#089083",
+  orange: "#FEA36B",
 
   colorWhite: "#fff",
   bardilBlack1: "#001833",

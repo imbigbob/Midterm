@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { COLORS, SIZES } from "../../../../constants";
 
-const ClassPicker = ({ values, selectedClass, setSelectedClass }) => {
+const ClassPicker = ({ label,values, selectedClass, setSelectedClass }) => {
   const [modalVisible, setModalVisible] = useState(false);
   
   const handleClassSelect = (value) => {
@@ -12,7 +12,7 @@ const ClassPicker = ({ values, selectedClass, setSelectedClass }) => {
 
   return (
     <View style={{ flex: 1 }}>
-      <View style={{marginLeft:'3%'}}><Text style={{fontSize: SIZES.medium}}>Class</Text></View>
+      <View style={{marginLeft:'3%'}}><Text style={{fontSize: SIZES.medium}}> {label}</Text></View>
       <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
         {values.map((value) => (
           <TouchableOpacity

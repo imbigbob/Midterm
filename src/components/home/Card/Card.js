@@ -9,7 +9,7 @@ const Card = () => {
     <ScrollView>
       <View>
         <Image style={styles.card} source={icons.CardHotels} />
-        <TouchableOpacity onPress={() => navigation.navigate('TransportPage')}>
+        <TouchableOpacity onPress={() => navigation.navigate('Transport Booking')}>
           <Image style={styles.card} source={icons.CardTransports} />
         </TouchableOpacity>
       </View>

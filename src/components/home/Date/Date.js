@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import { SIZES } from '../../../../constants';
 
 const DateRangePicker = ({ startDate, endDate, setStartDate, setEndDate }) => {
   const [showStartPicker, setShowStartPicker] = useState(false);
@@ -20,16 +21,13 @@ const DateRangePicker = ({ startDate, endDate, setStartDate, setEndDate }) => {
     }
   };
    
-  const checkDate = () => {
-    if (startDate > endDate) {
-      alert('End date must be after start date');
-    }
-  };
+
   return (
     <View style={styles.container}>
       <View style={styles.dateContainer}>
         <TouchableOpacity style={styles.button} onPress={() => setShowStartPicker(true)}>
-          <Text>Start Date: {startDate.toDateString()}</Text>
+          <Text>Departure</Text> 
+          <Text style={{fontSize:SIZES.xLarge}}>{startDate.toDateString()}</Text>
         </TouchableOpacity>
         {showStartPicker && (
           <DateTimePicker
@@ -43,7 +41,8 @@ const DateRangePicker = ({ startDate, endDate, setStartDate, setEndDate }) => {
 
       <View style={styles.dateContainer}>
         <TouchableOpacity style={styles.button} onPress={() => setShowEndPicker(true)}>
-          <Text>End Date: {endDate.toDateString()}</Text>
+          <Text>Return</Text>
+          <Text style={{fontSize:SIZES.xLarge}}>{endDate.toDateString()}</Text>
         </TouchableOpacity>
         {showEndPicker && (
           <DateTimePicker
