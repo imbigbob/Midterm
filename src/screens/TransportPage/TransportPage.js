@@ -33,7 +33,7 @@ const TransportPage = () => {
       selectedClass === '' ||
       selectedTransport === '' ||
       startDate === '' ||
-      endDate === ''
+       endDate === ''
     ) {
       alert('Please fill in all the required fields');
     }
@@ -49,7 +49,7 @@ const TransportPage = () => {
     }
 
     else {
-      navigation.navigate('FlightPage');
+      navigation.navigate('FlightPage', { data });
     }
   };
 

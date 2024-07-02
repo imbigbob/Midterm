@@ -13,7 +13,7 @@ import CardTransports from "../assets/icons/Card.png"
 import CardHotels from "../assets/icons/CardHotel.png"
 import CardEvents from "../assets/icons/Events.png"
 import CardTrips from "../assets/icons/Trips.png"
-
+import CardInfo from "../assets/icons/CardInfo.png"
 
 import Baby from "../assets/icons/Baby.png"
 import Pet from "../assets/icons/Pet.png"
@@ -41,6 +41,7 @@ export default {
     CardHotels,
     CardEvents,
     CardTrips,
+    
     rightA,
     leftA,
 
@@ -49,5 +50,6 @@ export default {
     Luggage,
     People,
 
+    CardInfo,
     location,
 };

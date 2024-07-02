@@ -23,6 +23,7 @@ const COLORS = {
   colorDarkslategray_300: "rgba(50, 74, 89, 0.5)",
   colorDarkslategray_400: "rgba(50, 74, 89, 0.22)",
   bardilOrange1: "#ff7465",
+  peach: "#FFDDA2",
 };
 
 const FONT = {
