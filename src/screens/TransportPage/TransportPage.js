@@ -21,18 +21,28 @@ const TransportPage = () => {
   const [luggage, setLuggage] = React.useState('');
   const [selectedClass, setSelectedClass] = React.useState('');
   const [selectedTransport, setSelectedTransport] = React.useState('');
-
+  const data = {
+    departure,
+    destination,
+    startDate,
+    endDate,
+    people,
+    baby,
+    pet,
+    luggage,
+    selectedClass,
+  }
   const handleSearch = () => {
     if (
-      departure === '' ||
-      destination === '' ||
-      people === '' ||
-      baby === '' ||
-      pet === '' ||
-      luggage === '' ||
-      selectedClass === '' ||
-      selectedTransport === '' ||
-      startDate === '' ||
+      // departure === '' ||
+      // destination === '' ||
+      // people === '' ||
+      // baby === '' ||
+      // pet === '' ||
+      // luggage === '' ||
+      // selectedClass === '' ||
+      // selectedTransport === '' ||
+      // startDate === '' ||
        endDate === ''
     ) {
       alert('Please fill in all the required fields');

@@ -4,7 +4,7 @@ import { Picker } from '@react-native-picker/picker';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import{ icons} from '../../../../constants'; 
 const FlightBooking = ({ departure, setDeparture, destination, setDestination }) => {
-    const locations = ['New York', 'Los Angeles', 'Chicago', 'Houston', 'Miami'];
+    const locations = ['New York', 'Los Angeles', 'Chicago', 'Houston', 'Miami','Dallas','Las Vegas','Boston'];
   
     const swapLocations = () => {
       const temp = departure;
