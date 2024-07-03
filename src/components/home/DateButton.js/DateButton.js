@@ -35,9 +35,9 @@ const DateButton = ({ values, initialStartDate, initialEndDate }) => {
   };
 
   return (
-    <View style={{ flex: 1 }}>
+   
       <FlatList
-        style={{ flex: 1, marginLeft: '3%' }}
+        style={{  marginLeft: '3%' }}
         horizontal={true}
         data={formattedDates}
         keyExtractor={(item, index) => index.toString()}
@@ -56,7 +56,7 @@ const DateButton = ({ values, initialStartDate, initialEndDate }) => {
         )}
       />
 
-    </View>
+   
   );
 };
 

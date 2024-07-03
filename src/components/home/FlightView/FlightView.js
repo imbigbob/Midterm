@@ -1,35 +1,35 @@
 import React from 'react';
-import { View, ScrollView, StyleSheet } from 'react-native';
+import { View, ScrollView, StyleSheet, Dimensions } from 'react-native';
 import Svg, { Image, Text as SvgText, G } from 'react-native-svg';
 import { icons } from '../../../../constants';
 
-const App = () => {
-  const renderSvgElement = (key) => (
+const FlightView = ({ info }) => {
+  const renderSvgElement = (flight, key) => (
     <View key={key} style={styles.svgContainer}>
       <Svg height="100%" width="100%" viewBox="0 0 100 100">
         <G transform="translate(5,5)">
           <Image
-            href={icons.CardTransports}
+            href={icons.CardInfo}
             width="90%"
             height="90%"
             preserveAspectRatio="xMidYMid meet"
           />
           <SvgText
-            x="50%"
-            y="10%"
+            x="20%"
+            y="30%"
             fill="black"
-            fontSize="5"
-            fontWeight="bold"
+            fontSize="4"
+            fontWeight="Poppins-Bold"
             stroke="black"
             strokeWidth="0.2"
             textAnchor="middle"
             alignmentBaseline="middle"
           >
-            {"Top Center Text"}
+            {flight.departure}
           </SvgText>
           <SvgText
             x="50%"
-            y="80%"
+            y="30%"
             fill="black"
             fontSize="5"
             fontWeight="bold"
@@ -38,27 +38,61 @@ const App = () => {
             textAnchor="middle"
             alignmentBaseline="middle"
           >
-            {"Bottom Center Text"}
+            {flight.destination}
           </SvgText>
+          <SvgText
+            x="50%"
+            y="60%"
+            fill="black"
+            fontSize="5"
+            fontWeight="bold"
+            stroke="black"
+            strokeWidth="0.2"
+            textAnchor="middle"
+            alignmentBaseline="middle"
+          >
+            {flight.date}
+          </SvgText>
+
+          <SvgText
+            x="50%"
+            y="50%"
+            fill="black"
+            fontSize="5"
+            fontWeight="bold"
+            stroke="black"
+            strokeWidth="0.2"
+            textAnchor="middle"
+            alignmentBaseline="middle"
+          >
+            {flight.price}
+          </SvgText>
+          <SvgText
+            x="50%"
+            y="50%"
+            fill="black"
+            fontSize="5"
+            fontWeight="bold"
+            stroke="black"
+            strokeWidth="0.2"
+            textAnchor="middle"
+            alignmentBaseline="middle"
+          >
+            {flight.departureTime}
+            </SvgText>
         </G>
       </Svg>
     </View>
   );
 
   return (
-    <View style={styles.container}>
-      <ScrollView contentContainerStyle={styles.scrollViewContent}>
-        {Array.from({ length: 5 }).map((_, index) => renderSvgElement(index))}
-      </ScrollView>
-    </View>
+    <ScrollView contentContainerStyle={styles.scrollViewContent}>
+      {info.map((flight, index) => renderSvgElement(flight, index))}
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: 'red',
-  },
   scrollViewContent: {
     flexGrow: 1,
     justifyContent: 'center',
@@ -66,9 +100,11 @@ const styles = StyleSheet.create({
   },
   svgContainer: {
     width: '100%',
-    height: 300, // Adjust height as needed
+    height: Dimensions.get('window').height / 2, // Adjust height to half of the screen height
+    justifyContent: 'center', // Center vertically
+    alignItems: 'center', // Center horizontally
     marginVertical: 10, // Spacing between SVG elements
   },
 });
 
-export default App;
+export default FlightView;
