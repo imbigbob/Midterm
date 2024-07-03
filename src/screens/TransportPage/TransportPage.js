@@ -22,6 +22,7 @@ const TransportPage = () => {
   const [selectedClass, setSelectedClass] = React.useState('');
   const [selectedTransport, setSelectedTransport] = React.useState('');
   const data = {
+
     departure,
     destination,
     startDate,
@@ -43,7 +44,7 @@ const TransportPage = () => {
       // selectedClass === '' ||
       // selectedTransport === '' ||
       // startDate === '' ||
-       endDate === ''
+      endDate === ''
     ) {
       alert('Please fill in all the required fields');
     }

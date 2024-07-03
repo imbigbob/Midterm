@@ -1,10 +1,12 @@
 import React from 'react';
-import { View, ScrollView, StyleSheet, Dimensions } from 'react-native';
+import { View, ScrollView, StyleSheet, Dimensions, Text } from 'react-native';
 import Svg, { Image, Text as SvgText, G } from 'react-native-svg';
 import { icons } from '../../../../constants';
 
 const FlightView = ({ info }) => {
   const renderSvgElement = (flight, key) => (
+
+
     <View key={key} style={styles.svgContainer}>
       <Svg height="100%" width="100%" viewBox="0 0 100 100">
         <G transform="translate(5,5)">
@@ -15,12 +17,13 @@ const FlightView = ({ info }) => {
             preserveAspectRatio="xMidYMid meet"
           />
           <SvgText
-            x="20%"
-            y="30%"
+            x="15%"
+            y="33%"
             fill="black"
             fontSize="4"
-            fontWeight="Poppins-Bold"
-            stroke="black"
+
+            fontFamily='Poppins-Bold'
+
             strokeWidth="0.2"
             textAnchor="middle"
             alignmentBaseline="middle"
@@ -28,25 +31,26 @@ const FlightView = ({ info }) => {
             {flight.departure}
           </SvgText>
           <SvgText
-            x="50%"
-            y="30%"
+            x="75%"
+            y="33%"
             fill="black"
-            fontSize="5"
-            fontWeight="bold"
-            stroke="black"
+            fontSize="4"
+
+
             strokeWidth="0.2"
             textAnchor="middle"
             alignmentBaseline="middle"
           >
             {flight.destination}
           </SvgText>
+
           <SvgText
-            x="50%"
+            x="15%"
             y="60%"
             fill="black"
-            fontSize="5"
-            fontWeight="bold"
-            stroke="black"
+            fontSize="4"
+            fontFamily='Poppins-Bold'
+
             strokeWidth="0.2"
             textAnchor="middle"
             alignmentBaseline="middle"
@@ -55,40 +59,66 @@ const FlightView = ({ info }) => {
           </SvgText>
 
           <SvgText
-            x="50%"
-            y="50%"
+            x="35%"
+            y="60%"
             fill="black"
-            fontSize="5"
-            fontWeight="bold"
-            stroke="black"
-            strokeWidth="0.2"
-            textAnchor="middle"
-            alignmentBaseline="middle"
-          >
-            {flight.price}
-          </SvgText>
-          <SvgText
-            x="50%"
-            y="50%"
-            fill="black"
-            fontSize="5"
-            fontWeight="bold"
-            stroke="black"
+            fontSize="4"
+            fontFamily='Poppins-Bold'
+        
             strokeWidth="0.2"
             textAnchor="middle"
             alignmentBaseline="middle"
           >
             {flight.departureTime}
-            </SvgText>
+
+          </SvgText>
+
+          <SvgText
+            x="60%"
+            y="60%"
+            fill="black"
+            fontSize="4"
+            fontFamily='Poppins-Bold'
+
+            strokeWidth="0.2"
+            textAnchor="middle"
+            alignmentBaseline="middle"
+          >
+            {flight.price}
+
+
+
+          </SvgText>
+
+          <SvgText
+            x="80%"
+            y="60%"
+            fill="black"
+            fontSize="4"
+            fontFamily='Poppins-Bold'
+         
+            strokeWidth="0.2"
+            textAnchor="middle"
+            alignmentBaseline="middle"
+          >
+            NL-41
+
+          </SvgText>
         </G>
       </Svg>
     </View>
+
+
   );
+
+
 
   return (
     <ScrollView contentContainerStyle={styles.scrollViewContent}>
       {info.map((flight, index) => renderSvgElement(flight, index))}
     </ScrollView>
+
+    // <Text style={{ fontSize: 30 }}>{JSON.stringify(info)}</Text>
   );
 };
 
