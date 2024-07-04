@@ -1,29 +1,21 @@
 import {  StyleSheet } from "react-native";
 
-import { COLORS, SIZES } from "../../../../constants";
-
 const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      marginTop: 8,
-      backgroundColor: 'aliceblue',
-    },
-        row: {
+    row: {
       flexDirection: 'row',
-      flexWrap: 'wrap',
+      justifyContent: 'space-between',
+      width: '100%',
     },
     button: {
       paddingHorizontal: '1%',
-
-      borderRadius: 40,
-      backgroundColor: 'navy',
-
+      borderRadius: 20,
+      backgroundColor: '#01635D',
       marginHorizontal: '5%',
       marginBottom: '1%',
-
-   
-      minWidth: '40%',
-
+       height:60,
+       width:60,    
+       justifyContent: 'center',
+        alignItems: 'center',
     },
     selected: {
       backgroundColor: 'coral',
@@ -34,19 +26,11 @@ const styles = StyleSheet.create({
       fontWeight: '500',
       color: 'coral',
     },
-    selectedLabel: {
-      color: 'white',
-    },
+
     label: {
       textAlign: 'center',
       marginBottom: 10,
       fontSize: 24,
-    },
-    productImage: {
-      minWidth: '30%',
-      minHeight: '30%',
-      justifyContent: 'center',
-      alignSelf: 'center',
     },
   });
 export default styles;

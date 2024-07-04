@@ -389,10 +389,10 @@ const flights = [
         returnDate: "2025-02-27",
         price: 350,
         seatMatrix: [
-            [1, 1, 1, 1, 1, 1, 1, 1],
-            [1, 1, 1, 1, 1, 1, 1, 1],
-            [1, 1, 1, 1, 1, 1, 1, 1],
-            [0, 1, 1, 1, 1, 1, 1, 1]
+            [1, 0, 1, 1, 0, 1, 1, 1],
+            [1, 1, 1, 1, 1, 1, 0, 1],
+            [1, 1, 1, 1, 0, 1, 1, 1],
+            [0, 1, 1, 0, 1, 1, 0, 1]
         ],
         people: 2,
         availableSeats: 7
@@ -400,6 +400,14 @@ const flights = [
     // Add more entries as needed
 ];
 flights.forEach(flight => {
+    // Reverse each row in the seatMatrix
+    flight.seatMatrix.forEach(row => {
+        row.reverse();
+    });
+
+    // Reverse the entire seatMatrix array if needed
+    // flight.seatMatrix.reverse();
+
     let availableSeats = flight.availableSeats;
     let totalSeats = flight.seatMatrix.flat().length;
     let newSeatMatrix = [];
@@ -435,7 +443,7 @@ flights.forEach(flight => {
     }
 
     flight.seatMatrix = newSeatMatrix;
+    flight.availableSeats = availableSeats - zerosToAdd; // Update availableSeats based on adjustments
 });
-
 console.log(flights);
 export default flights;

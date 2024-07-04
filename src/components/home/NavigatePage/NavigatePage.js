@@ -30,7 +30,7 @@ const PreviewLayout = ({
 }) => {
   const navigation = useNavigation();
   return (
-    <View style={{ padding: 10, flex: 1 }}>
+    <View style={{ padding: 10, flex: 1,backgroundColor:'white' }}>
 
       <View style={styles.row}>
         {values.map(value => (
@@ -38,10 +38,8 @@ const PreviewLayout = ({
             key={value.name}
             onPress={() => {
               if (selectedValue !== value.name) {
-
                 navigation.navigate(value.name);
               }
-
             }}
             style={[styles.button, selectedValue === value.name && styles.selected]}>
             <Image source={value.image} style={styles.productImage} />

@@ -33,7 +33,7 @@ const App = () => {
               options={{ headerShown: false }}
             />
             <Stack.Screen
-            name="Transport Booking"
+            name="Transport"
             component={TransportPage}
             options={{ title: 'Transport Booking', headerShown:true, headerTitleAlign: 'center',
               TextAlign: 'center'  }}

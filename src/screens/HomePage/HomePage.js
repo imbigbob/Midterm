@@ -19,8 +19,6 @@ const Homepage = () => {
       <View style={{ flex: 1, backgroundColor: COLORS.bardilBlack1 }}>
 
       </View>
-
-
       <View style={{ flex: 4 }}>
         <Text>Book your next trip</Text>
         <BookingService />

@@ -6,6 +6,7 @@ import Bell from "../assets/icons/Bell.png";
 import Logo from "../assets/icons/Logo.png"
 import Loading from "../assets/icons/Loading.png"
 import Plane from "../assets/icons/Plane.png"
+import Plane_HomePage from "../assets/icons/Plane_HomePage.png"
 import Event from "../assets/icons/Event.png"
 import Hotel from "../assets/icons/Hotel.png"
 import Earth from "../assets/icons/Earth.png"
@@ -14,6 +15,7 @@ import CardHotels from "../assets/icons/CardHotel.png"
 import CardEvents from "../assets/icons/Events.png"
 import CardTrips from "../assets/icons/Trips.png"
 import CardInfo from "../assets/icons/CardInfo.png"
+import Magnify from "../assets/icons/Magnify.png"
 
 import Baby from "../assets/icons/Baby.png"
 import Pet from "../assets/icons/Pet.png"
@@ -27,7 +29,7 @@ export default {
     Logo,
     Loading,
 
-
+    Plane_HomePage,
     Plane,
     Event,
     Hotel,
@@ -36,6 +38,7 @@ export default {
     Booking,
     Bell,
     user,
+    Magnify,
 
     CardTransports,
     CardHotels,

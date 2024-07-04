@@ -67,7 +67,11 @@ const SelectedSeatPage = ({ route }) => {
         }
         setSeatMatrix(updatedMatrix);
     };
-
+    const checkNavigation = () => { 
+        if(countChosenSeat === Number(people)){
+            navigation.navigate('BoardingPage', { flight, chosenSeats });
+        }
+    }
     return (
         <View style={styles.container}>
             <View style={{ flex: 1 }}>
@@ -113,16 +117,16 @@ const SelectedSeatPage = ({ route }) => {
             </View>
 
             <View style={{ flex: 2, backgroundColor: 'white' }}>
-                {countChosenSeat === Number(people) && (
+                
                     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                         <TouchableOpacity
                             style={styles.buttonContinue}
-                            onPress={() => navigation.navigate('BoardingPage', { flight, chosenSeats })}
+                            onPress={() => checkNavigation()}
                         >
-                            <Text>Continue</Text>
+                            <Text >Continue</Text>
                         </TouchableOpacity>
                     </View>
-                )}
+                
             </View>
 
         

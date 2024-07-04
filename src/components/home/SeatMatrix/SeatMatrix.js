@@ -1,8 +1,9 @@
 import React from 'react';
-import { View, TouchableOpacity, StyleSheet, Text } from 'react-native';
+import { View, TouchableOpacity, StyleSheet, Text,ScrollView } from 'react-native';
 
 const SeatMatrix = ({ seatMatrix, handleSeatSelect }) => {
     return (
+        <ScrollView>
         <View style={styles.container}>
             {seatMatrix.map((row, rowIndex) => (
                 <View key={rowIndex} style={styles.row}>
@@ -24,6 +25,7 @@ const SeatMatrix = ({ seatMatrix, handleSeatSelect }) => {
                 </View>
             ))}
         </View>
+        </ScrollView>
     );
 };
 
@@ -38,7 +40,7 @@ const styles = StyleSheet.create({
     },
     row: {
         flexDirection: 'column',
-        flexWrap: 'wrap',
+   
     },
     buttonBooked: {
         backgroundColor: '#089083',
@@ -47,6 +49,7 @@ const styles = StyleSheet.create({
         width: 48,
         justifyContent: 'center',
         alignItems: 'center',
+        marginBottom: 20,
     },
     buttonSelected: {
         backgroundColor: '#FEA36B',
@@ -55,6 +58,7 @@ const styles = StyleSheet.create({
         width: 48,
         justifyContent: 'center',
         alignItems: 'center',
+        marginBottom: 20,
     },
     buttonAvailable: {
         backgroundColor: '#B7DFDB',
@@ -63,6 +67,7 @@ const styles = StyleSheet.create({
         width: 48,
         justifyContent: 'center',
         alignItems: 'center',
+        marginBottom: 20,
     },
     seatText: {
         color: 'white',
