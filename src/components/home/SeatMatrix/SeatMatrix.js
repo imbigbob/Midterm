@@ -1,24 +1,7 @@
 import React from 'react';
-import { View, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, TouchableOpacity, StyleSheet, Text } from 'react-native';
 
-const SeatMatrix = ({ seatMatrix,customer }) => {
-
-    const [selectedSeat, setSelectedSeat] = React.useState(null);
-
-    const handleSeatSelect = (rowIndex, seatIndex) => {
-        const seatStatus = seatMatrix[rowIndex][seatIndex];
-
-        if (seatStatus === 1) {
-            return; // Do nothing if the seat is booked
-        } else if (seatStatus === 0&& !selectedSeat) {
-            seatMatrix[rowIndex][seatIndex] = 2; // Change from available to selected
-            setSelectedSeat({ rowIndex, seatIndex });
-        } else if (seatStatus === 2) {
-            seatMatrix[rowIndex][seatIndex] = 0; // Change from selected to available
-            setSelectedSeat(null);
-        }
-    }
-
+const SeatMatrix = ({ seatMatrix, handleSeatSelect }) => {
     return (
         <View style={styles.container}>
             {seatMatrix.map((row, rowIndex) => (
@@ -27,12 +10,16 @@ const SeatMatrix = ({ seatMatrix,customer }) => {
                         <TouchableOpacity
                             key={seatIndex}
                             style={[
-                                seat === 0 && styles.buttonAvailable,
-                                seat === 1 && styles.buttonBooked,
-                                seat === 2 && styles.buttonSelected,
+                                typeof seat === 'number' && seat === 0 && styles.buttonAvailable,
+                                typeof seat === 'number' && seat === 0.5 && styles.buttonBooked,
+                                typeof seat === 'number' && seat >0.5 && styles.buttonSelected,
                             ]}
                             onPress={() => handleSeatSelect(rowIndex, seatIndex)}
-                        />
+                        >
+                            {typeof seat === 'number' && seat > 0.5 && (
+                                <Text style={styles.seatText}>{seat}</Text>
+                            )}
+                        </TouchableOpacity>
                     ))}
                 </View>
             ))}
@@ -58,18 +45,28 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         height: 48,
         width: 48,
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     buttonSelected: {
         backgroundColor: '#FEA36B',
         borderRadius: 5,
         height: 48,
         width: 48,
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     buttonAvailable: {
         backgroundColor: '#B7DFDB',
         borderRadius: 5,
         height: 48,
         width: 48,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    seatText: {
+        color: 'white',
+        fontWeight: 'bold',
     },
 });
 

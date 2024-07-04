@@ -8,6 +8,7 @@ import BookingPage from "./src/screens/BookingPage/BookingPage";
 import TransportPage from "./src/screens/TransportPage/TransportPage";
 import FlightPage from "./src/screens/FlightPage/FlightPage";
 import SelectedSeatPage from "./src/screens/SelectedSeatPage/SelectedSeatPage";
+import BoardingPage from "./src/screens/BoardingPage/BoardingPage";
 
 import { SafeAreaView, StyleSheet } from "react-native";
 
@@ -49,7 +50,13 @@ const App = () => {
           options={{ title: 'Selected Seats', headerShown:true, headerTitleAlign: 'center',
             TextAlign: 'center'  }}
           />
-          
+          <Stack.Screen
+          name = "BoardingPage"
+          component = {BoardingPage}
+          options={{ title: 'Boarding Pass', headerShown:true, headerTitleAlign: 'center',
+            TextAlign: 'center'  }}
+          />
+
           </Stack.Navigator>
         ) : null}
       </NavigationContainer>

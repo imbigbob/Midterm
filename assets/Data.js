@@ -63,10 +63,10 @@ const flights = [
         landingTime: "23:00",
         price: 600,
         seatMatrix: [
-            [1, 1, 1, 1, 1, 1, 1, 1],
-            [1, 1, 1, 1, 1, 1, 1, 1],
-            [1, 1, 1, 1, 1, 1, 1, 1],
-            [1, 1, 1, 1, 1, 1, 1, 1]
+            [0, 1, 1, 1, 1, 1, 1, 1],
+            [0, 1, 1, 1, 1, 1, 1, 1],
+            [0, 1, 0, 1, 1, 1, 1, 1],
+            [0, 0, 0, 1, 1, 1, 1, 1]
         ],
         people: 1,
         availableSeats: 8
@@ -399,4 +399,43 @@ const flights = [
     },
     // Add more entries as needed
 ];
+flights.forEach(flight => {
+    let availableSeats = flight.availableSeats;
+    let totalSeats = flight.seatMatrix.flat().length;
+    let newSeatMatrix = [];
+
+    // Flatten seatMatrix to count current seats
+    let flattenedSeatMatrix = flight.seatMatrix.flat();
+
+    // Replace 1 with 0.5
+    flattenedSeatMatrix = flattenedSeatMatrix.map(seat => seat === 1 ? 0.5 : seat);
+
+    // Calculate the number of 0s needed to match availableSeats
+    let zerosToAdd = availableSeats - flattenedSeatMatrix.filter(seat => seat === 0).length;
+
+    if (zerosToAdd > 0) {
+        for (let i = 0; i < flattenedSeatMatrix.length; i++) {
+            if (flattenedSeatMatrix[i] === 0.5 && zerosToAdd > 0) {
+                flattenedSeatMatrix[i] = 0;
+                zerosToAdd--;
+            }
+        }
+    } else if (zerosToAdd < 0) {
+        for (let i = 0; i < flattenedSeatMatrix.length; i++) {
+            if (flattenedSeatMatrix[i] === 0 && zerosToAdd < 0) {
+                flattenedSeatMatrix[i] = 0.5;
+                zerosToAdd++;
+            }
+        }
+    }
+
+    // Convert the flattened matrix back to the original 2D format
+    for (let i = 0; i < flight.seatMatrix.length; i++) {
+        newSeatMatrix.push(flattenedSeatMatrix.slice(i * flight.seatMatrix[0].length, (i + 1) * flight.seatMatrix[0].length));
+    }
+
+    flight.seatMatrix = newSeatMatrix;
+});
+
+console.log(flights);
 export default flights;
