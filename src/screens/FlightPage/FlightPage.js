@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList, StyleSheet, Clipboard } from "react-native";
+import { View, Text, FlatList, StyleSheet} from "react-native";
 import { useNavigation } from '@react-navigation/native';
 import DateButton from '../../components/home/DateButton.js/DateButton';
 import flights from '../../../assets/Data';
@@ -77,16 +77,8 @@ const FlightPage = ({ route }) => {
 
   }, [route]);
 
-
-
-
-
-
   return (
-
-
     <View style={{ flex: 1 }}>
-
       <View style={{ height: 120 }}>
         <DateButton values={{ startDate, endDate }} initialStartDate={startDate}
           initialEndDate={endDate}
@@ -95,11 +87,10 @@ const FlightPage = ({ route }) => {
       </View>
 
       <Text style={{ fontSize: SIZES.large }}> {count} available from {data.departure} to {data.destination}.</Text>
-      <FlightView info={info} />
+      <FlightView info={info}
+      people={data.people} />
       
     </View>
-
-
   );
 
 }

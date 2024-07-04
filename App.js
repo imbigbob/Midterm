@@ -7,6 +7,7 @@ import Homepage from './src/screens/HomePage/HomePage';
 import BookingPage from "./src/screens/BookingPage/BookingPage";
 import TransportPage from "./src/screens/TransportPage/TransportPage";
 import FlightPage from "./src/screens/FlightPage/FlightPage";
+import SelectedSeatPage from "./src/screens/SelectedSeatPage/SelectedSeatPage";
 
 import { SafeAreaView, StyleSheet } from "react-native";
 
@@ -42,6 +43,13 @@ const App = () => {
             options={{ title: 'Flight Booking', headerShown:true, headerTitleAlign: 'center',
               TextAlign: 'center'  }}
           />
+          <Stack.Screen
+          name = "SelectedSeatPage"
+          component = {SelectedSeatPage}
+          options={{ title: 'Selected Seats', headerShown:true, headerTitleAlign: 'center',
+            TextAlign: 'center'  }}
+          />
+          
           </Stack.Navigator>
         ) : null}
       </NavigationContainer>
