@@ -9,6 +9,7 @@ import TransportPage from "./src/screens/TransportPage/TransportPage";
 import FlightPage from "./src/screens/FlightPage/FlightPage";
 import SelectedSeatPage from "./src/screens/SelectedSeatPage/SelectedSeatPage";
 import BoardingPage from "./src/screens/BoardingPage/BoardingPage";
+import SearchResultsScreen from './src/screens/SearchPage/SearchPage'
 
 import { SafeAreaView, StyleSheet } from "react-native";
 
@@ -36,6 +37,12 @@ const App = () => {
             name="Transport"
             component={TransportPage}
             options={{ title: 'Transport Booking', headerShown:true, headerTitleAlign: 'center',
+              TextAlign: 'center'  }}
+          />
+          <Stack.Screen
+            name="SearchResults"
+            component={SearchResultsScreen}
+            options={{ title: 'Search Results', headerShown:true, headerTitleAlign: 'center',
               TextAlign: 'center'  }}
           />
           <Stack.Screen

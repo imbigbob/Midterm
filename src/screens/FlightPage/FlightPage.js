@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList, StyleSheet} from "react-native";
+import { View, Text, FlatList, StyleSheet } from "react-native";
 import { useNavigation } from '@react-navigation/native';
 import DateButton from '../../components/home/DateButton.js/DateButton';
-import flights from '../../../assets/Data';
+import flights from '../../../assets/FlightData';
 import { SIZES } from '../../../constants';
 import FlightView from '../../components/home/FlightView/FlightView';
 const FlightPage = ({ route }) => {
@@ -88,8 +88,8 @@ const FlightPage = ({ route }) => {
 
       <Text style={{ fontSize: SIZES.large }}> {count} available from {data.departure} to {data.destination}.</Text>
       <FlightView info={info}
-      people={data.people} />
-      
+        people={data.people} />
+
     </View>
   );
 

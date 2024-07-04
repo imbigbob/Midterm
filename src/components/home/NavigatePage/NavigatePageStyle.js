@@ -1,6 +1,5 @@
 import { StyleSheet } from "react-native";
 
-import { COLORS, SIZES } from "../../../constants";
 
 const styles = StyleSheet.create({
   container: {
@@ -35,8 +34,8 @@ const styles = StyleSheet.create({
     fontSize: 24,
   },
   productImage: {
-    width: 50,
-    height: 50,
+    width: 24,
+    height: 24,
     marginBottom: 8,
     alignSelf: 'center',
   },

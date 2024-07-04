@@ -6,6 +6,7 @@ import styles from "./HomePageStyle";
 import NavigatePage from "../../components/home/NavigatePage/NavigatePage";
 import { useNavigation } from "@react-navigation/native";
 import BookingService from "../../components/home/BookingService/BookingService";
+import SearchComponent from "../../components/home/Search/Search";
 const Homepage = () => {
   const navigation = useNavigation();
 
@@ -16,8 +17,8 @@ const Homepage = () => {
         <Text>Explore the beautiful word</Text>
       </View>
 
-      <View style={{ flex: 1, backgroundColor: COLORS.bardilBlack1 }}>
-
+      <View style={{ flex: 1}}>
+      <SearchComponent />
       </View>
       <View style={{ flex: 4 }}>
         <Text>Book your next trip</Text>
