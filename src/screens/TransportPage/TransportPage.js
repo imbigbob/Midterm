@@ -58,7 +58,6 @@ const TransportPage = () => {
     ) {
       alert('We do not support this transport yet. Please choose Plane.');
     }
-
     else {
       navigation.navigate('FlightPage', { data });
     }

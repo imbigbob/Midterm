@@ -67,11 +67,13 @@ const SelectedSeatPage = ({ route }) => {
         }
         setSeatMatrix(updatedMatrix);
     };
+
     const checkNavigation = () => { 
         if(countChosenSeat === Number(people)){
             navigation.navigate('BoardingPage', { flight, chosenSeats });
         }
     }
+    
     return (
         <View style={styles.container}>
             <View style={{ flex: 1 }}>

@@ -12,7 +12,6 @@ const FlightPage = ({ route }) => {
   const [endDate, setEndDate] = React.useState(new Date(data.endDate));
   const [count, setCount] = useState(0);
   const [info, setInfo] = useState([]);
-
   const formatDate = (date) => {
     const d = new Date(date);
     let month = '' + (d.getMonth() + 1);
@@ -47,7 +46,8 @@ const FlightPage = ({ route }) => {
     try {
       const formattedEndDate = formatDate(data.endDate);
       const formattedStartDate = formatDate(data.startDate);
-      const filteredFlights = flights.filter(item => item.date === formattedStartDate
+      const filteredFlights = flights.filter(item =>
+           item.date === formattedStartDate
         && item.returnDate === formattedEndDate
         && item.departure === data.departure
         && item.destination === data.destination

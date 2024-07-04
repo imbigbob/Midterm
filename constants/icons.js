@@ -23,6 +23,14 @@ import Luggage from "../assets/icons/Luggage.png"
 import People from "../assets/icons/People.png"
 import rightA from "../assets/icons/right.png"
 import leftA from "../assets/icons/left.png"
+
+import cat from "../assets/icons/cat.png"
+import PersonAccount from "../assets/icons/PersonAccount.png"
+import Purse from "../assets/icons/Purse.png"
+import Set from "../assets/icons/Set.png"
+import Heart from "../assets/icons/Heart.png"
+import Clock from "../assets/icons/Clock.png"
+
     ;
 
 export default {
@@ -55,4 +63,12 @@ export default {
 
     CardInfo,
     location,
+
+    cat,
+    PersonAccount,
+    Purse,
+    Set,
+    Heart,
+    Clock,
+    
 };

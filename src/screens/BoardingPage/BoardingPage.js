@@ -5,8 +5,6 @@ import { useNavigation } from '@react-navigation/native';
 
 const BoardingPage = ({ route }) => {
     const navigation = useNavigation();
-
-
     return (
         <View style={styles.container}>
           
