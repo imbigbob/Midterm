@@ -17,12 +17,6 @@ const BookingPage = () => {
       <View style={{ flex: 9 }}>
         <Card />
       </View>
-
-
-      <View style={{ flex: 1, backgroundColor: 'white', borderRadius: 30, marginBottom: '1%' }}>
-        <NavigatePage />
-      </View>
-
     </View>
   );
 };

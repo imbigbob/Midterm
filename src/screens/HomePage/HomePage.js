@@ -27,9 +27,7 @@ const Homepage = () => {
       <View style={{ flex: 2 }}>
         
       </View>
-      <View style={{ flex: 1 }}>
-        <NavigatePage />
-      </View>
+
     </View>
   );
 };
