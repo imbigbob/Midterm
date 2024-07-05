@@ -23,7 +23,7 @@ import Luggage from "../assets/icons/Luggage.png"
 import People from "../assets/icons/People.png"
 import rightA from "../assets/icons/right.png"
 import leftA from "../assets/icons/left.png"
-
+import filter  from "../assets/icons/filter.png"
 import cat from "../assets/icons/cat.png"
 import PersonAccount from "../assets/icons/PersonAccount.png"
 import Purse from "../assets/icons/Purse.png"
@@ -60,7 +60,7 @@ export default {
     Pet,
     Luggage,
     People,
-
+    filter,
     CardInfo,
     location,
 

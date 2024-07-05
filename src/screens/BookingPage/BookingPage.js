@@ -2,7 +2,6 @@
 import { StyleSheet, View, Text } from "react-native";
 import { COLORS, SIZES } from "../../constants";
 
-import NavigatePage from "../../components/home/NavigatePage/NavigatePage";
 import Card from "../../components/home/Card/Card";
 import { useNavigation } from "@react-navigation/native";
 

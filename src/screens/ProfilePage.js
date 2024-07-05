@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Image, View, Text,  TouchableOpacity } from "react-native";
+import { Image, View, Text, TouchableOpacity } from "react-native";
 import { COLORS, icons, SIZES, FONT, SHADOWS } from '../../constants';
 import UserData from '../../assets/UserData';
 import { useNavigation } from '@react-navigation/native';
@@ -18,13 +18,15 @@ const ProfilePage = () => {
   return (
     <View style={{ flex: 1 }}>
 
-      <View style={{ minWidth: '100%', height: 34, justifyContent: 'center', alignItems: 'center'
-        ,marginTop:30,marginBottom:10 }}>
+      <View style={{
+        minWidth: '100%', height: 34, justifyContent: 'center', alignItems: 'center'
+        , marginTop: 30, marginBottom: 10
+      }}>
         <Text style={{ fontStyle: 'Poppins', fontWeight: 'SemiBold', fontSize: 26, color: 'black' }}>
           Account
         </Text>
       </View>
-      <View style={{ justifyContent: 'center', alignItems: 'center' ,marginBottom:20}}>
+      <View style={{ justifyContent: 'center', alignItems: 'center', marginBottom: 20 }}>
         <Image source={icons.cat} style={{
           width: 100, height: 100,
           borderRadius: 20
@@ -38,7 +40,7 @@ const ProfilePage = () => {
       </View>
       <View style={{ marginBottom: 10, flexDirection: 'row', marginLeft: 20 }}>
         <TouchableOpacity onPress={() => navigation.navigate('PersonalInformation')}>
-        <Image source={icons.PersonAccount} style={{ width: 24, height: 24 }} />
+          <Image source={icons.PersonAccount} style={{ width: 24, height: 24 }} />
         </TouchableOpacity>
         <Text style={{ fontStyle: 'Poppins', fontWeight: 'SemiBold', fontSize: 20, color: 'black' }}>Personal Information</Text>
       </View>

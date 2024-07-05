@@ -10,7 +10,7 @@ import SelectedSeatPage from "./src/screens/SelectedSeatPage/SelectedSeatPage";
 import BoardingPage from "./src/screens/BoardingPage/BoardingPage";
 import SearchResultsScreen from './src/screens/SearchPage/SearchPage'
 import PersonalInformation from "./src/screens/PersonalInformation/PersonalInformation";
-
+import FilterPage from './src/screens/FilterPage/FilterPage';
 
 const Stack = createNativeStackNavigator();
 
@@ -19,7 +19,7 @@ function App() {
     <SafeAreaView style={{ flex: 1 }}>
       <NavigationContainer>
         <Stack.Navigator>
-          <Stack.Screen name="Home" component={TabNavigator} options={{ headerShown: false }} />
+          <Stack.Screen name="TabNavigator" component={TabNavigator} options={{ headerShown: false }} />
           <Stack.Screen name="Transport" component={TransportPage} options={{
             title: 'Transport Booking', headerShown: true, headerTitleAlign: 'center',
             TextAlign: 'center'
@@ -28,16 +28,19 @@ function App() {
           <Stack.Screen name="FlightPage" component={FlightPage} />
           <Stack.Screen name="SelectedSeatPage" component={SelectedSeatPage}
             options={{
-              title: 'Selected Seats', headerShown: true, headerTitleAlign: 'center',
-              TextAlign: 'center'
+              title: 'Selected Seats', headerShown: true, headerTitleAlign: 'center'
             }} />
           <Stack.Screen name="BoardingPage" component={BoardingPage} />
           <Stack.Screen name="SearchResults" component={SearchResultsScreen}
             options={{
               title: 'Search Results', headerShown: true, headerTitleAlign: 'center'
             }} />
+          <Stack.Screen name="FilterPage" component={FilterPage}
+            options={{ title: 'Filters', headerShown: true, headerTitleAlign: 'center' }}
+          />
           <Stack.Screen name="PersonalInformation" component={PersonalInformation}
-            options={{ title: 'Personal Information', headerShown: true, headerTitleAlign: 'center' }} />
+            options={{ title: 'Personal Information', headerShown: true, headerTitleAlign: 'center' }}
+          />
 
         </Stack.Navigator>
       </NavigationContainer>
