@@ -21,7 +21,9 @@ const SeatMatrix = ({ seatMatrix, handleSeatSelect }) => {
                                 <Text style={styles.seatText}>{seat}</Text>
                             )}
                         </TouchableOpacity>
+                       
                     ))}
+                     <Text>{seat}</Text>
                 </View>
             ))}
         </View>

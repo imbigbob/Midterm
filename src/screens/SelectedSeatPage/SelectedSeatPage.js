@@ -11,18 +11,17 @@ const SelectedSeatPage = ({ route }) => {
     const [chosenSeats, setChosenSeats] = useState({});
     const [customer, setCustomer] = useState(1);
     const [countChosenSeat, setCountChosenSeat] = useState(0);
-
+    const rowMapping = ['A', 'B', 'C', 'D'];
     const handlePress = (item) => {
         setCustomer(item);
     };
 
     useEffect(() => {
-       
         setSeatMatrix(flight.seatMatrix);
         const updatedMatrix = [...flight.seatMatrix];
-        for(i=0;i<updatedMatrix.length;i++){
-            for(j=0;j<updatedMatrix[i].length;j++){
-                if(updatedMatrix[i][j] > 0.5 ){
+        for (let i = 0; i < updatedMatrix.length; i++) {
+            for (let j = 0; j < updatedMatrix[i].length; j++) {
+                if (updatedMatrix[i][j] > 0.5) {
                     updatedMatrix[i][j] = 0;
                 }
             }
@@ -68,12 +67,12 @@ const SelectedSeatPage = ({ route }) => {
         setSeatMatrix(updatedMatrix);
     };
 
-    const checkNavigation = () => { 
-        if(countChosenSeat === Number(people)){
+    const checkNavigation = () => {
+        if (countChosenSeat === Number(people)) {
             navigation.navigate('BoardingPage', { flight, chosenSeats });
         }
     }
-    
+
     return (
         <View style={styles.container}>
             <View style={{ flex: 1 }}>
@@ -81,7 +80,7 @@ const SelectedSeatPage = ({ route }) => {
                 <ScrollView horizontal={true}>
                     {Array.from({ length: Number(people) }, (_, i) => i + 1).map((item, index) => (
                         <View key={index} style={{ flexDirection: 'row' }}>
-                            <TouchableOpacity
+                                                        <TouchableOpacity
                                 style={[styles.button, customer === item && styles.selectedButton]}
                                 onPress={() => handlePress(item)}
                             >
@@ -119,19 +118,28 @@ const SelectedSeatPage = ({ route }) => {
             </View>
 
             <View style={{ flex: 2, backgroundColor: 'white' }}>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between', padding: 10 }}>
+                    <Text>Selected Seats</Text>
+                    <Text>  {chosenSeats[customer] ? ` ${rowMapping[chosenSeats[customer].rowIndex]}
+                     ${chosenSeats[customer].seatIndex + 1}`
+                        : 'None'}
+                    </Text>
+                </View>
                 
-                    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                        <TouchableOpacity
-                            style={styles.buttonContinue}
-                            onPress={() => checkNavigation()}
-                        >
-                            <Text >Continue</Text>
-                        </TouchableOpacity>
-                    </View>
-                
-            </View>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between', padding: 10 }}>
+                    <Text>Price</Text>
+                    <Text>{flight.price}</Text>
+                </View>
 
-        
+                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                    <TouchableOpacity
+                        style={styles.buttonContinue}
+                        onPress={() => checkNavigation()}
+                    >
+                        <Text>Continue</Text>
+                    </TouchableOpacity>
+                </View>
+            </View>
         </View>
     );
 };

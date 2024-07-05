@@ -30,7 +30,8 @@ function App() {
             options={{
               title: 'Selected Seats', headerShown: true, headerTitleAlign: 'center'
             }} />
-          <Stack.Screen name="BoardingPage" component={BoardingPage} />
+          <Stack.Screen name="BoardingPage" component={BoardingPage}
+          options={{title:'Boarding',headerShown:true,headerTitleAlign:'center'}} />
           <Stack.Screen name="SearchResults" component={SearchResultsScreen}
             options={{
               title: 'Search Results', headerShown: true, headerTitleAlign: 'center'
