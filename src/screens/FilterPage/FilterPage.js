@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { COLORS, SIZES } from "../../../constants";
 import PickTime from "../../components/home/PickTime/PickTime";
 import Sort from "../../components/home/Sort";
+import PriceRangeSlider from '../../components/home/PriceRangeSlider';
 import { useNavigation } from '@react-navigation/native';
 
 const FilterPage = ({ route }) => {
@@ -20,12 +21,15 @@ const FilterPage = ({ route }) => {
   const ResetValues = () => {
     setFPArrivalTime();
     setFPDepartureTime();
-    setFPSort(  );
+    setFPSort();
+    setFPMinPrice(50);
+    setFPMaxPrice(250);
     filterData.setDeparture();
     filterData.setArrival();
-    // setMinPrice(0);
-    // setMaxPrice(1000);
+    filterData.setMinPrice(50);
+    filterData.setMaxPrice(250);
     filterData.setSort();
+
   }
 
   return (
@@ -56,9 +60,10 @@ const FilterPage = ({ route }) => {
           setValuePrevious={filterData.setSort}
         />
       </View>
-
-
-
+      <PriceRangeSlider minFPPrice={FPminPrice} maxFPPrice={FPmaxPrice}
+        setMinPrice={setFPMinPrice} setMaxPrice={setFPMaxPrice}
+        setMinPrevious={filterData.setMinPrice} setMaxPrevious={filterData.setMaxPrice}
+      />
       <View style={{ height: 64, flexDirection: 'row', justifyContent: 'space-between' }}>
         <TouchableOpacity style={{ backgroundColor: COLORS.peach, padding: 10, borderRadius: 10 }}
           onPress={handlePress}

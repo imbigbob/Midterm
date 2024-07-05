@@ -16,8 +16,8 @@ const FlightPage = ({ route }) => {
   const [info, setInfo] = useState([]);
   const [departureTime, setDeparture] = useState('');
   const [arrivalTime, setArrival] = useState('');
-  const [minPrice, setMinPrice] = useState(0);
-  const [maxPrice, setMaxPrice] = useState(1000);
+  const [minPrice, setMinPrice] = useState(50);
+  const [maxPrice, setMaxPrice] = useState(250);
   const [sort, setSort] = useState('');
 
   const filterData = {
