@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 import DateButton from '../../components/home/DateButton.js/DateButton';
@@ -10,8 +10,8 @@ import FlightView from '../../components/home/FlightView/FlightView';
 const FlightPage = ({ route }) => {
   const navigation = useNavigation();
   const { data } = route.params;
-  const [startDate, setStartDate] = React.useState(new Date(data.startDate));
-  const [endDate, setEndDate] = React.useState(new Date(data.endDate));
+  const [startDate, setStartDate] = useState(new Date(data.startDate));
+  const [endDate, setEndDate] = useState(new Date(data.endDate));
   const [count, setCount] = useState(0);
   const [info, setInfo] = useState([]);
   const [departureTime, setDeparture] = useState('');
@@ -19,21 +19,22 @@ const FlightPage = ({ route }) => {
   const [minPrice, setMinPrice] = useState(50);
   const [maxPrice, setMaxPrice] = useState(250);
   const [sort, setSort] = useState('');
-
+  const initialStartDate = new Date(data.startDate);
   const filterData = {
     departureTime,
-      arrivalTime,
-      minPrice,
-      maxPrice,
-      sort,
-      setDeparture,
-      setArrival,
-      setMinPrice,
-      setMaxPrice,
-      setSort,
-  }
+    arrivalTime,
+    minPrice,
+    maxPrice,
+    sort,
+    setDeparture,
+    setArrival,
+    setMinPrice,
+    setMaxPrice,
+    setSort,
+  };
+
   const handleFilter = () => {
-    navigation.navigate('FilterPage', {filterData});
+    navigation.navigate('FilterPage', { filterData });
   };
 
   const formatDate = (date) => {
@@ -48,31 +49,31 @@ const FlightPage = ({ route }) => {
     return [year, month, day].join('-');
   };
 
-  const checkFlight = () => {
+  const checkFlight = (startDate, endDate) => {
     let count = 0;
-    const formattedEndDate = formatDate(data.endDate);
-    const formattedStartDate = formatDate(data.startDate);
+    const formattedEndDate = formatDate(endDate);
+    const formattedStartDate = formatDate(startDate);
     for (let item of flights) {
-      if (item.date === formattedStartDate
-        && item.returnDate === formattedEndDate
-        && item.departure === data.departure
-        && item.destination === data.destination
-        && data.people <= item.availableSeats)
+      if (item.date === formattedStartDate &&
+        item.returnDate === formattedEndDate &&
+        item.departure === data.departure &&
+        item.destination === data.destination &&
+        data.people <= item.availableSeats)
         count++;
     }
     return count;
   };
 
-  const getFlightInfo = () => {
+  const getFlightInfo = (startDate, endDate) => {
     try {
-      const formattedEndDate = formatDate(data.endDate);
-      const formattedStartDate = formatDate(data.startDate);
+      const formattedEndDate = formatDate(endDate);
+      const formattedStartDate = formatDate(startDate);
       const filteredFlights = flights.filter(item =>
-        item.date === formattedStartDate
-        && item.returnDate === formattedEndDate
-        && item.departure === data.departure
-        && item.destination === data.destination
-        && data.people <= item.availableSeats
+        item.date === formattedStartDate &&
+        item.returnDate === formattedEndDate &&
+        item.departure === data.departure &&
+        item.destination === data.destination &&
+        data.people <= item.availableSeats
       );
       return filteredFlights;
     } catch (error) {
@@ -81,17 +82,26 @@ const FlightPage = ({ route }) => {
     }
   };
 
+  const handleChangeDate = (startDate, endDate) => {
+    const filteredFlights = getFlightInfo(startDate, endDate);
+    if (filteredFlights) {
+      setInfo(filteredFlights);
+      setCount(filteredFlights.length);
+    }
+    
+  };
+
   useEffect(() => {
     console.log(data);
   }, []);
 
   useEffect(() => {
-    const count = checkFlight();
+    const count = checkFlight(startDate, endDate);
     setCount(count);
-  }, []);
+  }, [startDate, endDate]);
 
   useEffect(() => {
-    const filteredFlights = getFlightInfo();
+    const filteredFlights = getFlightInfo(startDate, endDate);
     if (filteredFlights) {
       setInfo(filteredFlights);
     }
@@ -102,10 +112,10 @@ const FlightPage = ({ route }) => {
       <View style={{ height: 120 }}>
         <DateButton
           values={{ startDate, endDate }}
-          initialStartDate={startDate}
-          initialEndDate={endDate}
+          initialStartDate={initialStartDate}
+         
           setStartDate={setStartDate}
-          setEndDate={setEndDate}
+          handleChangeDate={handleChangeDate}
         />
       </View>
       <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingRight: 14 }}>

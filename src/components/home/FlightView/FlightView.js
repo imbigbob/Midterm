@@ -13,7 +13,7 @@ const FlightView = ({ info, people }) => {
   const renderSvgElement = (flight, key) => (
     <TouchableOpacity key={key} style={styles.svgContainer}
       onPress={() => navigation.navigate('SelectedSeatPage', { flight, people })}>
-      <ImageBackground source={icons.CardInfo} style={{ width: 343, height: 168,padding:10 }} >
+      <ImageBackground source={icons.CardInfo} style={{ width: 343, height: 168,padding:10, marginTop: 20 }} >
 
         <View style={{ flex: 1 }}>
           <View style={{ flexDirection: 'row', justifyContent: 'space-between', padding: 10, marginTop: 20 }}>
