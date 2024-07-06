@@ -120,8 +120,7 @@ const SelectedSeatPage = ({ route }) => {
             <View style={{ flex: 2, backgroundColor: 'white' }}>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', padding: 10 }}>
                     <Text>Selected Seats</Text>
-                    <Text>  {chosenSeats[customer] ? ` ${rowMapping[chosenSeats[customer].rowIndex]}
-                     ${chosenSeats[customer].seatIndex + 1}`
+                    <Text >  {chosenSeats[customer] ? ` ${rowMapping[chosenSeats[customer].rowIndex]}${chosenSeats[customer].seatIndex + 1}`
                         : 'None'}
                     </Text>
                 </View>

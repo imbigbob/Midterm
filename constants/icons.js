@@ -30,7 +30,10 @@ import Purse from "../assets/icons/Purse.png"
 import Set from "../assets/icons/Set.png"
 import Heart from "../assets/icons/Heart.png"
 import Clock from "../assets/icons/Clock.png"
-
+import PlaneLine from "../assets/icons/PlaneLine.png"
+import Code from "../assets/icons/Code.png"
+import Divider from "../assets/icons/Divider.png"
+import Boarding from "../assets/icons/Boarding.png"
     ;
 
 export default {
@@ -70,5 +73,9 @@ export default {
     Set,
     Heart,
     Clock,
+    PlaneLine,
+    Code,
+    Divider,
+    Boarding,
     
 };

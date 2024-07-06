@@ -23,7 +23,7 @@ const SeatMatrix = ({ seatMatrix, handleSeatSelect }) => {
                         </TouchableOpacity>
                        
                     ))}
-                     <Text>{seat}</Text>
+           
                 </View>
             ))}
         </View>

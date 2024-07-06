@@ -15,7 +15,8 @@ const flights = [
             [0, 1, 1, 1,  1, 1, 0, 1]
         ],
         people: 2,
-        availableSeats: 7
+        availableSeats: 7, 
+        class: 'Economy'
     },
     {
         id: 2,
@@ -33,7 +34,8 @@ const flights = [
             [0, 1, 1, 1, 1, 1, 1, 1]
         ],
         people: 1,
-        availableSeats: 7
+        availableSeats: 7,
+        class: 'Economy'
     },
     {
         id: 3,
@@ -51,7 +53,9 @@ const flights = [
             [1, 1, 1, 1, 1, 1, 1, 1]
         ],
         people: 2,
-        availableSeats: 8
+        availableSeats: 8,
+        class: 'Economy'
+
     },
     {
         id: 4,
@@ -69,7 +73,8 @@ const flights = [
             [0, 0, 0, 1, 1, 1, 1, 1]
         ],
         people: 1,
-        availableSeats: 8
+        availableSeats: 8,
+        class: 'Economy'
     },
     {
         id: 5,
@@ -87,7 +92,8 @@ const flights = [
             [0, 1, 1, 1, 1, 1, 1, 1]
         ],
         people: 2,
-        availableSeats: 7
+        availableSeats: 7,
+        class: 'Economy'
     },
     {
         id: 6,
@@ -105,7 +111,9 @@ const flights = [
             [1, 1, 1, 1, 1, 1, 1, 1]
         ],
         people: 1,
-        availableSeats: 8
+        availableSeats: 8,
+        
+        class: 'First Class'
     },
     {
         id: 7,
@@ -123,7 +131,8 @@ const flights = [
             [1, 1, 1, 1, 1, 1, 1, 1]
         ],
         people: 2,
-        availableSeats: 8
+        availableSeats: 8,
+        class: 'First Class'
     },
     {
         id: 8,
@@ -141,7 +150,8 @@ const flights = [
             [1, 1, 1, 1, 1, 1, 1, 1]
         ],
         people: 1,
-        availableSeats: 8
+        availableSeats: 8,
+        class: 'Bussiness'
     },
     {
         id: 9,
@@ -159,7 +169,8 @@ const flights = [
             [1, 1, 1, 1, 1, 1, 1, 1]
         ],
         people: 2,
-        availableSeats: 8
+        availableSeats: 8,
+        class: 'Bussiness'
     },
     {
         id: 10,
@@ -177,7 +188,8 @@ const flights = [
             [1, 1, 1, 1, 1, 1, 1, 1]
         ],
         people: 1,
-        availableSeats: 8
+        availableSeats: 8,
+        class: 'Bussiness'
     },
     {
         id: 11,
@@ -195,7 +207,8 @@ const flights = [
             [1, 1, 1, 1, 1, 1, 1, 1]
         ],
         people: 2,
-        availableSeats: 8
+        availableSeats: 8,
+        class: 'Bussiness'
     },
     {
         id: 12,
@@ -213,7 +226,8 @@ const flights = [
             [1, 1, 1, 1, 1, 1, 1, 1]
         ],
         people: 1,
-        availableSeats: 8
+        availableSeats: 8,
+        class: 'Bussiness'
     },
     {
         id: 13,
@@ -231,7 +245,8 @@ const flights = [
             [1, 1, 1, 1, 1, 1, 1, 1]
         ],
         people: 2,
-        availableSeats: 8
+        availableSeats: 8,
+        class: 'Bussiness'
     },
     {
         id: 14,
@@ -249,7 +264,8 @@ const flights = [
             [1, 1, 1, 1, 1, 1, 1, 1]
         ],
         people: 1,
-        availableSeats: 8
+        availableSeats: 8,
+        class: 'Bussiness'
     },
     {
         id: 15,
@@ -283,7 +299,8 @@ const flights = [
             [0, 1, 1, 1, 1, 1, 1, 1]
         ],
         people: 2,
-        availableSeats: 7
+        availableSeats: 7,
+        class: 'First Class'
     },
     {
         id: 17,
@@ -299,7 +316,8 @@ const flights = [
             [0, 1, 1, 1, 1, 1, 1, 1]
         ],
         people: 2,
-        availableSeats: 7
+        availableSeats: 7,
+        class: 'Bussiness'
     },
     {
         id: 18,
@@ -315,7 +333,8 @@ const flights = [
             [0, 1, 1, 1, 1, 1, 1, 1]
         ],
         people: 2,
-        availableSeats: 7
+        availableSeats: 7,
+        class: 'Bussiness'
     },
     {
         id: 19,
@@ -331,7 +350,8 @@ const flights = [
             [0, 1, 1, 1, 1, 1, 1, 1]
         ],
         people: 2,
-        availableSeats: 7
+        availableSeats: 7,
+        class: 'Bussiness'
     },
     {
         id: 20,
@@ -347,7 +367,8 @@ const flights = [
             [0, 1, 1, 1, 1, 1, 1, 1]
         ],
         people: 2,
-        availableSeats: 7
+        availableSeats: 7,
+        class: 'Economy'
     },
     {
         id: 21,
@@ -363,7 +384,8 @@ const flights = [
             [0, 1, 1, 1, 1, 1, 1, 1]
         ],
         people: 2,
-        availableSeats: 7
+        availableSeats: 7,
+        class: 'First Class'
     },
     {
         id: 22,
@@ -379,7 +401,8 @@ const flights = [
             [0, 1, 1, 1, 1, 1, 1, 1]
         ],
         people: 2,
-        availableSeats: 7
+        availableSeats: 7,
+        class: 'Economy'
     },
     {
         id: 23,
@@ -395,7 +418,8 @@ const flights = [
             [0, 1, 1, 0, 1, 1, 0, 1]
         ],
         people: 2,
-        availableSeats: 7
+        availableSeats: 7,
+        class: 'Bussiness'
     },
     // Add more entries as needed
 ];

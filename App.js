@@ -18,7 +18,7 @@ function App() {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <NavigationContainer>
-        <Stack.Navigator>
+        <Stack.Navigator initialRouteName="TabNavigator">
           <Stack.Screen name="TabNavigator" component={TabNavigator} options={{ headerShown: false }} />
           <Stack.Screen name="Transport" component={TransportPage} options={{
             title: 'Transport Booking', headerShown: true, headerTitleAlign: 'center',

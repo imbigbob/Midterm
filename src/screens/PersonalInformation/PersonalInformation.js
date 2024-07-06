@@ -62,6 +62,9 @@ const PersonalInformation = () => {
                     keyboardType="phone-pad"
                 />
             </View>
+            <TouchableOpacity style={{borderRadius: 10,width:300,height:60,position:'absolute',bottom:20,justifyContent:'center',alignItems:'center'}}>
+                <Text style={{fontSize:20,fontWeight:'bold',color:'red'}}>End Session</Text>
+            </TouchableOpacity>
         </View>
     );
 };
