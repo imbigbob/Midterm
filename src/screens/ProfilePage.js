@@ -1,17 +1,55 @@
 import * as React from "react";
 import { Image, View, Text, TouchableOpacity } from "react-native";
 import { COLORS, icons, SIZES, FONT, SHADOWS } from '../../constants';
-import UserData from '../../assets/UserData';
+
 import { useNavigation } from '@react-navigation/native';
-
+import firestore from '@react-native-firebase/firestore';
+import { useState, useEffect } from 'react';
 const ProfilePage = () => {
-  const [FirstName, setFirstName] = React.useState(UserData.FirstName);
-  const [LastName, setLastName] = React.useState(UserData.LastName);
+  const [user, setUser] = useState({ name: '', LastName: ''});
+  const [newName, setNewName] = useState('');
+  const [newLastName, setNewLastName] = useState('');
+ 
 
-  React.useEffect(() => {
-    setFirstName(UserData.FirstName);
-    setLastName(UserData.LastName);
+
+  useEffect(() => {
+    const getUser = async () => {
+      const userDocument = await firestore()
+        .collection('users')
+        .doc('ELXF1Rfjl0qFvjmwvyrR')
+        .get();
+      
+      if (userDocument.exists) {
+        setUser({
+          name: userDocument.data()?.name || '',
+          LastName: userDocument.data()?.LastName || '',
+        });
+        setNewName(userDocument.data()?.name || '');
+        setNewLastName(userDocument.data()?.LastName || '');
+      } else {
+        console.log('No such document!');
+      }
+    };
+
+    const subscriber = firestore()
+      .collection('users')
+      .doc('ELXF1Rfjl0qFvjmwvyrR')
+      .onSnapshot(doc => {        
+        setUser({
+          name: doc.data().name,
+          LastName : doc.data().LastName,
+        });
+        setNewName(doc.data().name);
+        setNewLastName(doc.data().LastName);
+      });
+
+    getUser();
+
+    return () => subscriber(); // Cleanup the subscription on unmount
   }, []);
+
+
+
 
   const navigation = useNavigation();
 
@@ -35,7 +73,7 @@ const ProfilePage = () => {
 
       <View style={{ marginBottom: 10, flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
         <Text style={{ fontStyle: 'Poppins', fontWeight: 'SemiBold', fontSize: 20, color: 'black' }}>
-          {FirstName} {LastName}
+         {user.name} {user.LastName}
         </Text>
       </View>
       <View style={{ marginBottom: 10, flexDirection: 'row', marginLeft: 20 }}>

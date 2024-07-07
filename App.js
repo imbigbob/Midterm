@@ -9,8 +9,9 @@ import FlightPage from "./src/screens/FlightPage/FlightPage";
 import SelectedSeatPage from "./src/screens/SelectedSeatPage/SelectedSeatPage";
 import BoardingPage from "./src/screens/BoardingPage/BoardingPage";
 import SearchResultsScreen from './src/screens/SearchPage/SearchPage'
-import PersonalInformation from "./src/screens/PersonalInformation/PersonalInformation";
 import FilterPage from './src/screens/FilterPage/FilterPage';
+import PersonalInformation from "./src/screens/PersonalInformation/PersonalInformation";
+
 
 const Stack = createNativeStackNavigator();
 

@@ -1,83 +1,213 @@
-import * as React from "react";
-import { Image, View, Text, TouchableOpacity, TextInput } from "react-native";
-import { COLORS, icons, SIZES, FONT, SHADOWS } from '../../../constants';
-import UserData from '../../../assets/UserData';
+import React, { Component } from 'react';
+import { View, Text, TextInput, Image, StyleSheet,TouchableOpacity } from 'react-native';
+import firestore from '@react-native-firebase/firestore';
+import {icons} from '../../../constants';
+class PersonalInformation extends Component {
+  state = {
+    user: {
+      name: '',
+      email: '',
+      phone: '',
+      LastName:'',
+    },
+    newName: '',
+    newEmail: '',
+    newPhone: '',
+    newLastName:'',
+    isEditing: false,
+  };
 
-const PersonalInformation = () => {
+  constructor(props) {
+    super(props);
+    this.getUser();
+    this.subscriber = firestore()
+      .collection('users')
+      .doc('ELXF1Rfjl0qFvjmwvyrR')
+      .onSnapshot(doc => {        
+          this.setState({
+            user: {
+              name: doc.data().name,
+              email: doc.data().email,
+              phone: doc.data().phone,
+                LastName:doc.data().LastName,
+            },
+            newName: doc.data().name,
+            newEmail: doc.data().email,
+            newPhone: doc.data().phone,
+                newLastName:doc.data().LastName,
+          });
+      });
+  }
 
-    const [FirstName, setFirstName] = React.useState(UserData.FirstName);
-    const [LastName, setLastName] = React.useState(UserData.LastName);
-    const [email, setEmail] = React.useState(UserData.email);
-    const [Phone, setPhone] = React.useState(UserData.Phone);
+  getUser = async () => {
+    const userDocument = await firestore()
+      .collection('users')
+      .doc('ELXF1Rfjl0qFvjmwvyrR')
+      .get();
+    
+    if (userDocument.exists) {
+      console.log(userDocument.data());
+      this.setState({
+        user: {
+          name: userDocument.data()?.name || '',
+          email: userDocument.data()?.email || '',
+          phone: userDocument.data()?.phone || '',
+            LastName:userDocument.data()?.LastName || '',
+        },
+        newName: userDocument.data()?.name || '',
+        newEmail: userDocument.data()?.email || '',
+        newPhone: userDocument.data()?.phone || '',
+            newLastName:userDocument.data()?.LastName || '',
+      });
+    } else {
+      console.log('No such document!');
+    }
+  };
+
+  toggleEditMode = () => {
+    this.setState((prevState) => ({ isEditing: !prevState.isEditing }));
+  };
+
+  updateUserInfo = async () => {
+    const { newName, newEmail, newPhone } = this.state;
+    if (newName.trim() && newEmail.trim() && newPhone.trim()) {
+      await firestore()
+        .collection('users')
+        .doc('ELXF1Rfjl0qFvjmwvyrR')
+        .update({ 
+          name: newName,
+          email: newEmail,
+          phone: newPhone,
+          LastName:newLastName,
+        });
+      this.setState({ isEditing: false }); // Exit edit mode after saving
+    }
+  };
+
+  render() {
+    const { user, newName, newEmail, newPhone,newLastName, isEditing } = this.state;
 
     return (
-        <View style={{ padding: 20 }}>
-            <View style={{ justifyContent: 'center', alignItems: 'center', marginTop: 20 }}>
-                <Image source={icons.cat} style={{
+      <View style={styles.container}>
+                        <Image source={icons.cat} style={{
                     width: 100, height: 100,
-                    borderRadius: 20
+                    borderRadius: 20,marginTop:20
                 }} />
+        {!isEditing ? (
+          <View style={{padding:10}}>
+            <View style={styles.box} >
+                <Text style={styles.title}>First Name</Text>
+            <Text styke={styles.text}> {user.name}</Text>
             </View>
-
-            <View style={{ marginBottom: 30, flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
-                <Text style={{ fontFamily: 'Poppins', fontWeight: '600', fontSize: 20, color: 'black' }}>
-                    {FirstName} {LastName}
-                </Text>
+            <View style={styles.box} >
+                <Text style={styles.title}>Last Name</Text>
+            <Text> {user.LastName}</Text>
             </View>
-            
-            <View style={{ marginBottom: 20 }}>
-                <TextInput
-                    style={styles.input}
-                    placeholder="First Name"
-                    value={FirstName}
-                    onChangeText={setFirstName}
-                />
+            <View style={styles.box} >
+            <Text style={styles.title}>Email</Text>
+            <Text> {user.email}</Text>
             </View>
-
-            <View style={{ marginBottom: 20 }}>
-                <TextInput
-                    style={styles.input}
-                    placeholder="Last Name"
-                    value={LastName}
-                    onChangeText={setLastName}
-                />
+            <View style={styles.box} >
+            <Text style={styles.title}>Phone</Text>
+            <Text>{user.phone}</Text>
             </View>
-
-            <View style={{ marginBottom: 20 }}>
-                <TextInput
-                    style={styles.input}
-                    placeholder="Email"
-                    value={email}
-                    onChangeText={setEmail}
-                    keyboardType="email-address"
-                />
-            </View>
-
-            <View style={{ marginBottom: 20 }}>
-                <TextInput
-                    style={styles.input}
-                    placeholder="Phone"
-                    value={Phone}
-                    onChangeText={setPhone}
-                    keyboardType="phone-pad"
-                />
-            </View>
-            <TouchableOpacity style={{borderRadius: 10,width:300,height:60,position:'absolute',bottom:20,justifyContent:'center',alignItems:'center'}}>
-                <Text style={{fontSize:20,fontWeight:'bold',color:'red'}}>End Session</Text>
+            <TouchableOpacity style={styles.button}  onPress={this.toggleEditMode} >
+                <Text style={styles.textButton}>Edit</Text>
             </TouchableOpacity>
-        </View>
+          </View>
+        ) : (
+          <View >
+            <Text style={styles.textEdit}>First Name</Text>
+            <TextInput
+              placeholder="Enter new name"
+              value={newName}
+              onChangeText={(text) => this.setState({ newName: text })}
+              style={styles.input}
+            />
+            <Text style={styles.textEdit}>Last Name</Text>
+            <TextInput
+                placeholder="Enter new Last Name"
+                value={newLastName}
+                onChangeText={(text) => this.setState({ newLastName: text })}
+                style={styles.input}
+            />
+            <Text style={styles.textEdit}>Email</Text>
+            <TextInput
+              placeholder="Enter new email"
+              value={newEmail}
+              onChangeText={(text) => this.setState({ newEmail: text })}
+              style={styles.input}
+            />
+            <Text style={styles.textEdit}>Phone</Text>
+            <TextInput
+              placeholder="Enter new phone"
+              value={newPhone}
+              onChangeText={(text) => this.setState({ newPhone: text })}
+              style={styles.input}
+            />
+            <TouchableOpacity onPress={this.updateUserInfo} style={styles.button} >
+                <Text style={styles.textButton}>Save</Text>
+            </TouchableOpacity>
+          </View>
+        )}
+      </View>
     );
-};
+  }
+}
 
-const styles = {
-    input: {
-        height: 40,
-     
-        borderWidth: 1,
-        borderRadius: 5,
-        paddingLeft: 10,
-        marginBottom: 10,
-    },
-};
+const styles = StyleSheet.create({
+  container: {
+    alignItems:'center',
+  },
+  input: {
+    borderWidth: 1,
+    borderColor: 'white',
+    padding: 10,
+    marginVertical: 5,
+    backgroundColor:'white',
+    borderRadius:10,
+    marginLeft:10,
+  },
+  button:{
+    width:343,
+    height:60,
+    backgroundColor:'#FEA36B',
+    borderRadius:10,
+    justifyContent:'center',
+    alignItems:'center',
+  },
+  textButton : {
+    color:'white',
+    fontSize:20,
+    fontWeight:'700',
+    alignItems:'center',
+  },
+  title:{
+    fontSize:10,
+    fontWeight:'400',
+    color:'#727272',
+    marginLeft:10,
+  },
+  box : {
+    width:343,
+    height:60,
+    backgroundColor:'white',
+    justifyContent:'center',
+    marginBottom:10,
+    borderRadius:10,
+  },
+  textEdit:{
+    color:'#727272',
+    fontSize:10,
+    fontWeight:'400',
+    alignItems:'center',
+    marginBottom:5,
+    marginLeft:10,
+  },
+  text:{
+marginLeft:10,
+  }
+
+});
 
 export default PersonalInformation;

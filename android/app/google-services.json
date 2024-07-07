@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "362594595841",
-    "project_id": "myapp-8d8fe",
-    "storage_bucket": "myapp-8d8fe.appspot.com"
+    "project_number": "461021897911",
+    "project_id": "travelly-d9c2c",
+    "storage_bucket": "travelly-d9c2c.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:362594595841:android:c93d2cf7e34f1dfa5e3c00",
+        "mobilesdk_app_id": "1:461021897911:android:233757e6ab321b3bdbd932",
         "android_client_info": {
           "package_name": "com.travelly"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyDikB5DmLhta7tdDKkkrN0BNDOxen72OH8"
+          "current_key": "AIzaSyArwBGHK6mFN-51gJy1yhSvgWbLAOgMjig"
         }
       ],
       "services": {
