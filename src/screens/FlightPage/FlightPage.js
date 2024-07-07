@@ -17,7 +17,7 @@ const FlightPage = ({ route }) => {
   const [departureTime, setDeparture] = useState('');
   const [arrivalTime, setArrival] = useState('');
   const [minPrice, setMinPrice] = useState(50);
-  const [maxPrice, setMaxPrice] = useState(250);
+  const [maxPrice, setMaxPrice] = useState(1000);
   const [sort, setSort] = useState('');
   const initialStartDate = new Date(data.startDate);
   const filterData = {
@@ -32,7 +32,13 @@ const FlightPage = ({ route }) => {
     setMaxPrice,
     setSort,
   };
-
+  const timeMappingValues = {
+    '06AM-12PM': 1,
+    '12PM-06PM': 2,
+    '06PM-12AM': 3,
+    '12AM-06AM': 4
+  };
+  
   const handleFilter = () => {
     navigation.navigate('FilterPage', { filterData });
   };
@@ -106,6 +112,22 @@ const FlightPage = ({ route }) => {
       setInfo(filteredFlights);
     }
   }, [route]);
+  useEffect(() => {
+    console.log(sort);
+    if(sort === 'Price'){
+      const sorted = info.sort((a, b) => a.price - b.price);
+      setInfo(sorted);
+    }
+  }, [sort, info]);
+
+  useEffect(() => {
+    console.log(minPrice, maxPrice);
+    for(let item of info){
+      if(item.price < minPrice || item.price > maxPrice){
+        info.splice(info.indexOf(item), 1);
+      }
+    }
+  }, [minPrice, maxPrice]);
 
   return (
     <View style={{ flex: 1 }}>
@@ -113,7 +135,6 @@ const FlightPage = ({ route }) => {
         <DateButton
           values={{ startDate, endDate }}
           initialStartDate={initialStartDate}
-         
           setStartDate={setStartDate}
           handleChangeDate={handleChangeDate}
         />

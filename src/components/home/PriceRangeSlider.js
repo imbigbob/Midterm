@@ -12,17 +12,17 @@ const PriceRangeSlider = ({
   const [low, setLow] = useState(minFPPrice);
   const [high, setHigh] = useState(maxFPPrice);
 
-  const [lowPosition, setLowPosition] = useState((minFPPrice / 500) * 300);
-  const [highPosition, setHighPosition] = useState((maxFPPrice / 500) * 300);
+  const [lowPosition, setLowPosition] = useState((minFPPrice / 1000) * 300);
+  const [highPosition, setHighPosition] = useState((maxFPPrice / 1000) * 300);
 
   const sliderWidth = 300;
   const thumbWidth = 20;
 
   useEffect(() => {
     setLow(minFPPrice);
-    setLowPosition((minFPPrice / 500) * sliderWidth);
+    setLowPosition((minFPPrice / 1000) * sliderWidth);
     setHigh(maxFPPrice);
-    setHighPosition((maxFPPrice / 500) * sliderWidth);
+    setHighPosition((maxFPPrice / 1000) * sliderWidth);
   }, [minFPPrice, maxFPPrice]);
 
   const lowPanResponder = PanResponder.create({
@@ -32,7 +32,7 @@ const PriceRangeSlider = ({
         Math.max(0, lowPosition + gestureState.dx),
         highPosition - thumbWidth
       );
-      const newLowValue = Math.round((newLow / sliderWidth) * 500);
+      const newLowValue = Math.round((newLow / sliderWidth) * 1000);
       setLowPosition(newLow);
       setLow(newLowValue);
       setMinPrice(newLowValue);
@@ -47,7 +47,7 @@ const PriceRangeSlider = ({
         Math.min(sliderWidth, highPosition + gestureState.dx),
         lowPosition + thumbWidth
       );
-      const newHighValue = Math.round((newHigh / sliderWidth) * 500);
+      const newHighValue = Math.round((newHigh / sliderWidth) * 1000);
       setHighPosition(newHigh);
       setHigh(newHighValue);
       setMaxPrice(newHighValue);
@@ -81,7 +81,7 @@ const PriceRangeSlider = ({
               const numericValue = Number(value);
               if (numericValue >= 0 && numericValue <= high) {
                 setLow(numericValue);
-                setLowPosition((numericValue / 500) * sliderWidth);
+                setLowPosition((numericValue / 1000) * sliderWidth);
                 setMinPrice(numericValue);
                 setMinPrevious(numericValue);
               }
@@ -96,9 +96,9 @@ const PriceRangeSlider = ({
             keyboardType="numeric"
             onChangeText={(value) => {
               const numericValue = Number(value);
-              if (numericValue >= low && numericValue <= 500) {
+              if (numericValue >= low && numericValue <= 1000) {
                 setHigh(numericValue);
-                setHighPosition((numericValue / 500) * sliderWidth);
+                setHighPosition((numericValue / 1000) * sliderWidth);
                 setMaxPrice(numericValue);
                 setMaxPrevious(numericValue);
               }

@@ -14,8 +14,23 @@ const FilterPage = ({ route }) => {
   const [FPminPrice, setFPMinPrice] = useState(filterData.minPrice);
   const [FPmaxPrice, setFPMaxPrice] = useState(filterData.maxPrice);
   const [FPsort, setFPSort] = useState(filterData.sort);
+  const buttonStyle = 0;
+  const timeMappingValues = {
+    '06AM-12PM': 1,
+    '12PM-06PM': 2,
+    '06PM-12AM': 3,
+    '12AM-06AM': 4
+  };
 
+  const isDepartureSmallerThanArrival = (departure, arrival) => {
+    return timeMappingValues[departure] <= timeMappingValues[arrival];
+  };
   const handlePress = () => {
+    // if (!isDepartureSmallerThanArrival(FPdepartureTime, FParrivalTime)) {
+    //   alert('Departure time must be smaller than Arrival time');
+    //   return;
+    // }
+
     navigation.goBack();
   };
   const ResetValues = () => {
@@ -29,7 +44,6 @@ const FilterPage = ({ route }) => {
     filterData.setMinPrice(50);
     filterData.setMaxPrice(250);
     filterData.setSort();
-
   }
 
   return (
@@ -53,6 +67,7 @@ const FilterPage = ({ route }) => {
           setValuePrevious={filterData.setArrival}
         />
       </View>
+
       <View>
         <Sort values={['Arrival time', 'Departure time', 'Price', 'Lowest fare', 'Duration']}
           selectedValue={FPsort}
@@ -60,19 +75,28 @@ const FilterPage = ({ route }) => {
           setValuePrevious={filterData.setSort}
         />
       </View>
+
       <PriceRangeSlider minFPPrice={FPminPrice} maxFPPrice={FPmaxPrice}
         setMinPrice={setFPMinPrice} setMaxPrice={setFPMaxPrice}
         setMinPrevious={filterData.setMinPrice} setMaxPrevious={filterData.setMaxPrice}
       />
-      <View style={{ height: 64, flexDirection: 'row', justifyContent: 'space-between' }}>
-        <TouchableOpacity style={{ backgroundColor: COLORS.peach, padding: 10, borderRadius: 10 }}
-          onPress={handlePress}
-        >
-          <Text style={{ color: 'white', textAlign: 'center' }}>Done</Text>
+
+      <View style={{
+        flexDirection: 'row', justifyContent: 'space-between',
+        padding: 10
+      }}>
+        <TouchableOpacity style={styles.button}
+          onPress={ResetValues} >
+          <Text style={styles.textButton}>Reset</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={{ backgroundColor: COLORS.green, padding: 10, borderRadius: 10 }}
-          onPress={ResetValues} />
+        <TouchableOpacity style={styles.selectedButton}
+          onPress={handlePress}
+        >
+          <Text style={styles.selectedTextButton}>Done</Text>
+        </TouchableOpacity>
+
+
       </View>
     </View>
   );
@@ -82,7 +106,39 @@ const styles = StyleSheet.create({
   time: {
     fontSize: SIZES.medium,
     fontFamily: 'Poppins',
+    fontSIZE:40,
+    fontWeight: 'bold',
   },
+  textButton: {
+    color: COLORS.peach,
+    textAlign: 'center',
+    fontSIZE:40,
+    fontWeight: '700',
+  },
+  selectedTextButton: {
+    color: 'white',
+    textAlign: 'center',
+    fontWeight: '700',
+  },
+  button: {
+    width: 160,
+    height: 60,
+    backgroundColor: COLORS.green,
+
+    borderRadius: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  selectedButton: {
+    backgroundColor: '#FEA36B',
+    
+    width: 160,
+    height: 60,
+    borderRadius: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  
 });
 
 export default FilterPage;
