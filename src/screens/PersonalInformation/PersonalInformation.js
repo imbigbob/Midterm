@@ -1,19 +1,20 @@
 import React, { Component } from 'react';
-import { View, Text, TextInput, Image, StyleSheet,TouchableOpacity } from 'react-native';
+import { View, Text, TextInput, Image, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import firestore from '@react-native-firebase/firestore';
-import {icons} from '../../../constants';
+import { icons } from '../../../constants';
+
 class PersonalInformation extends Component {
   state = {
     user: {
       name: '',
       email: '',
       phone: '',
-      LastName:'',
+      LastName: '',
     },
     newName: '',
     newEmail: '',
     newPhone: '',
-    newLastName:'',
+    newLastName: '',
     isEditing: false,
   };
 
@@ -23,19 +24,19 @@ class PersonalInformation extends Component {
     this.subscriber = firestore()
       .collection('users')
       .doc('ELXF1Rfjl0qFvjmwvyrR')
-      .onSnapshot(doc => {        
-          this.setState({
-            user: {
-              name: doc.data().name,
-              email: doc.data().email,
-              phone: doc.data().phone,
-                LastName:doc.data().LastName,
-            },
-            newName: doc.data().name,
-            newEmail: doc.data().email,
-            newPhone: doc.data().phone,
-                newLastName:doc.data().LastName,
-          });
+      .onSnapshot(doc => {
+        this.setState({
+          user: {
+            name: doc.data().name,
+            email: doc.data().email,
+            phone: doc.data().phone,
+            LastName: doc.data().LastName,
+          },
+          newName: doc.data().name,
+          newEmail: doc.data().email,
+          newPhone: doc.data().phone,
+          newLastName: doc.data().LastName,
+        });
       });
   }
 
@@ -44,7 +45,7 @@ class PersonalInformation extends Component {
       .collection('users')
       .doc('ELXF1Rfjl0qFvjmwvyrR')
       .get();
-    
+
     if (userDocument.exists) {
       console.log(userDocument.data());
       this.setState({
@@ -52,12 +53,12 @@ class PersonalInformation extends Component {
           name: userDocument.data()?.name || '',
           email: userDocument.data()?.email || '',
           phone: userDocument.data()?.phone || '',
-            LastName:userDocument.data()?.LastName || '',
+          LastName: userDocument.data()?.LastName || '',
         },
         newName: userDocument.data()?.name || '',
         newEmail: userDocument.data()?.email || '',
         newPhone: userDocument.data()?.phone || '',
-            newLastName:userDocument.data()?.LastName || '',
+        newLastName: userDocument.data()?.LastName || '',
       });
     } else {
       console.log('No such document!');
@@ -68,55 +69,62 @@ class PersonalInformation extends Component {
     this.setState((prevState) => ({ isEditing: !prevState.isEditing }));
   };
 
+  isPhoneNumberValid = (phone) => {
+    const phoneNumberRegex = /^[0-9]+$/;
+    return phoneNumberRegex.test(phone);
+  };
+
   updateUserInfo = async () => {
-    const { newName, newEmail, newPhone } = this.state;
-    if (newName.trim() && newEmail.trim() && newPhone.trim()) {
+    const { newName, newEmail, newPhone, newLastName } = this.state;
+    if (newName.trim() && newEmail.trim() && newPhone.trim() && newLastName.trim()) {
+      if (!this.isPhoneNumberValid(newPhone)) {
+        Alert.alert('Invalid Phone Number', 'Phone number should contain only digits.');
+        return;
+      }
       await firestore()
         .collection('users')
         .doc('ELXF1Rfjl0qFvjmwvyrR')
-        .update({ 
+        .update({
           name: newName,
           email: newEmail,
           phone: newPhone,
-          LastName:newLastName,
+          LastName: newLastName,
         });
       this.setState({ isEditing: false }); // Exit edit mode after saving
+      this.getUser(); // Fetch the updated data
     }
   };
 
   render() {
-    const { user, newName, newEmail, newPhone,newLastName, isEditing } = this.state;
+    const { user, newName, newEmail, newPhone, newLastName, isEditing } = this.state;
 
     return (
       <View style={styles.container}>
-                        <Image source={icons.cat} style={{
-                    width: 100, height: 100,
-                    borderRadius: 20,marginTop:20
-                }} />
+        <Image source={icons.cat} style={{ width: 100, height: 100, borderRadius: 20, marginTop: 20 }} />
         {!isEditing ? (
-          <View style={{padding:10}}>
-            <View style={styles.box} >
-                <Text style={styles.title}>First Name</Text>
-            <Text styke={styles.text}> {user.name}</Text>
+          <View style={{ padding: 10 }}>
+            <View style={styles.box}>
+              <Text style={styles.title}>First Name</Text>
+              <Text style={styles.text}>{user.name}</Text>
             </View>
-            <View style={styles.box} >
-                <Text style={styles.title}>Last Name</Text>
-            <Text> {user.LastName}</Text>
+            <View style={styles.box}>
+              <Text style={styles.title}>Last Name</Text>
+              <Text>{user.LastName}</Text>
             </View>
-            <View style={styles.box} >
-            <Text style={styles.title}>Email</Text>
-            <Text> {user.email}</Text>
+            <View style={styles.box}>
+              <Text style={styles.title}>Email</Text>
+              <Text>{user.email}</Text>
             </View>
-            <View style={styles.box} >
-            <Text style={styles.title}>Phone</Text>
-            <Text>{user.phone}</Text>
+            <View style={styles.box}>
+              <Text style={styles.title}>Phone</Text>
+              <Text>{user.phone}</Text>
             </View>
-            <TouchableOpacity style={styles.button}  onPress={this.toggleEditMode} >
-                <Text style={styles.textButton}>Edit</Text>
+            <TouchableOpacity style={styles.button} onPress={this.toggleEditMode}>
+              <Text style={styles.textButton}>Edit</Text>
             </TouchableOpacity>
           </View>
         ) : (
-          <View >
+          <View>
             <Text style={styles.textEdit}>First Name</Text>
             <TextInput
               placeholder="Enter new name"
@@ -126,10 +134,10 @@ class PersonalInformation extends Component {
             />
             <Text style={styles.textEdit}>Last Name</Text>
             <TextInput
-                placeholder="Enter new Last Name"
-                value={newLastName}
-                onChangeText={(text) => this.setState({ newLastName: text })}
-                style={styles.input}
+              placeholder="Enter new Last Name"
+              value={newLastName}
+              onChangeText={(text) => this.setState({ newLastName: text })}
+              style={styles.input}
             />
             <Text style={styles.textEdit}>Email</Text>
             <TextInput
@@ -144,9 +152,10 @@ class PersonalInformation extends Component {
               value={newPhone}
               onChangeText={(text) => this.setState({ newPhone: text })}
               style={styles.input}
+              keyboardType="numeric" // Ensure numeric keyboard is displayed
             />
-            <TouchableOpacity onPress={this.updateUserInfo} style={styles.button} >
-                <Text style={styles.textButton}>Save</Text>
+            <TouchableOpacity onPress={this.updateUserInfo} style={styles.button}>
+              <Text style={styles.textButton}>Save</Text>
             </TouchableOpacity>
           </View>
         )}
@@ -157,57 +166,56 @@ class PersonalInformation extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    alignItems:'center',
+    alignItems: 'center',
   },
   input: {
     borderWidth: 1,
     borderColor: 'white',
     padding: 10,
     marginVertical: 5,
-    backgroundColor:'white',
-    borderRadius:10,
-    marginLeft:10,
+    backgroundColor: 'white',
+    borderRadius: 10,
+    marginLeft: 10,
   },
-  button:{
-    width:343,
-    height:60,
-    backgroundColor:'#FEA36B',
-    borderRadius:10,
-    justifyContent:'center',
-    alignItems:'center',
+  button: {
+    width: 343,
+    height: 60,
+    backgroundColor: '#FEA36B',
+    borderRadius: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
-  textButton : {
-    color:'white',
-    fontSize:20,
-    fontWeight:'700',
-    alignItems:'center',
+  textButton: {
+    color: 'white',
+    fontSize: 20,
+    fontWeight: '700',
+    alignItems: 'center',
   },
-  title:{
-    fontSize:10,
-    fontWeight:'400',
-    color:'#727272',
-    marginLeft:10,
+  title: {
+    fontSize: 10,
+    fontWeight: '400',
+    color: '#727272',
+    marginLeft: 10,
   },
-  box : {
-    width:343,
-    height:60,
-    backgroundColor:'white',
-    justifyContent:'center',
-    marginBottom:10,
-    borderRadius:10,
+  box: {
+    width: 343,
+    height: 60,
+    backgroundColor: 'white',
+    justifyContent: 'center',
+    marginBottom: 10,
+    borderRadius: 10,
   },
-  textEdit:{
-    color:'#727272',
-    fontSize:10,
-    fontWeight:'400',
-    alignItems:'center',
-    marginBottom:5,
-    marginLeft:10,
+  textEdit: {
+    color: '#727272',
+    fontSize: 10,
+    fontWeight: '400',
+    alignItems: 'center',
+    marginBottom: 5,
+    marginLeft: 10,
   },
-  text:{
-marginLeft:10,
-  }
-
+  text: {
+    marginLeft: 10,
+  },
 });
 
 export default PersonalInformation;
