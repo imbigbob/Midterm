@@ -1,17 +1,16 @@
 import * as React from "react";
 import { Image, View, Text, TouchableOpacity } from "react-native";
 import { COLORS, icons, SIZES, FONT, SHADOWS } from '../../constants';
-
 import { useNavigation } from '@react-navigation/native';
 import firestore from '@react-native-firebase/firestore';
+import auth from '@react-native-firebase/auth';  // Import auth from Firebase
 import { useState, useEffect } from 'react';
+
 const ProfilePage = () => {
   const [user, setUser] = useState({ name: '', LastName: ''});
   const [newName, setNewName] = useState('');
   const [newLastName, setNewLastName] = useState('');
  
-
-
   useEffect(() => {
     const getUser = async () => {
       const userDocument = await firestore()
@@ -48,14 +47,23 @@ const ProfilePage = () => {
     return () => subscriber(); // Cleanup the subscription on unmount
   }, []);
 
-
-
-
   const navigation = useNavigation();
+
+  // Logoff function to handle user sign-out
+  const logoff = () => {
+    auth()
+      .signOut()
+      .then(() => {
+        console.log('User signed out!');
+        navigation.navigate('Login'); // Navigate to login screen or any other screen
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  };
 
   return (
     <View style={{ flex: 1 }}>
-
       <View style={{
         minWidth: '100%', height: 34, justifyContent: 'center', alignItems: 'center'
         , marginTop: 30, marginBottom: 10
@@ -70,7 +78,6 @@ const ProfilePage = () => {
           borderRadius: 20
         }} />
       </View>
-
       <View style={{ marginBottom: 10, flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
         <Text style={{ fontStyle: 'Poppins', fontWeight: 'SemiBold', fontSize: 20, color: 'black' }}>
          {user.name} {user.LastName}
@@ -97,6 +104,11 @@ const ProfilePage = () => {
       <View style={{ marginBottom: 10, flexDirection: 'row', marginLeft: 20 }}>
         <Image source={icons.Set} style={{ width: 24, height: 24 }} />
         <Text style={{ fontStyle: 'Poppins', fontWeight: 'SemiBold', fontSize: 20, color: 'black' }}>Settings</Text>
+      </View>
+      <View style={{ marginBottom: 10,justifyContent:'center',alignItems:'center'}}>
+        <TouchableOpacity style={{width:300,height:60,backgroundColor:COLORS.peach}} onPress={logoff}>
+          <Text style={{ fontStyle: 'Poppins', fontWeight: 'SemiBold', fontSize: 20, color: 'white' }}>Logoff</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
