@@ -36,7 +36,7 @@ const PriceRangeSlider = ({
       setLowPosition(newLow);
       setLow(newLowValue);
       setMinPrice(newLowValue);
-      setMinPrevious(newLowValue);
+     
     },
   });
 
@@ -51,7 +51,7 @@ const PriceRangeSlider = ({
       setHighPosition(newHigh);
       setHigh(newHighValue);
       setMaxPrice(newHighValue);
-      setMaxPrevious(newHighValue);
+      
     },
   });
 
@@ -83,7 +83,7 @@ const PriceRangeSlider = ({
                 setLow(numericValue);
                 setLowPosition((numericValue / 1000) * sliderWidth);
                 setMinPrice(numericValue);
-                setMinPrevious(numericValue);
+                
               }
             }}
           />
@@ -100,7 +100,7 @@ const PriceRangeSlider = ({
                 setHigh(numericValue);
                 setHighPosition((numericValue / 1000) * sliderWidth);
                 setMaxPrice(numericValue);
-                setMaxPrevious(numericValue);
+                
               }
             }}
           />

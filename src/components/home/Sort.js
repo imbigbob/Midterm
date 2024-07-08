@@ -13,7 +13,7 @@ const Sort = ({ values, selectedValue, setSelectedValue, setValuePrevious }) => 
             ]}
             onPress={() => {
               setSelectedValue(value);
-              setValuePrevious(value);
+              
             }}
           >
             {selectedValue === value && <View style={styles.innerCircle} />}

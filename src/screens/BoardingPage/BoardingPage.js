@@ -54,7 +54,7 @@ const BoardingPage = ({ route }) => {
                     </View>
                     <View style={{paddingRight:20}}>
                       <Text style={styles.title}> Flight</Text>
-                    <Text style={styles.text}>NL82-1</Text>
+                    <Text style={styles.text}>AM -{flight.id}</Text>
                     </View>
                     <View style={{paddingRight:20}}>
                       <Text style={styles.title}> Class</Text>

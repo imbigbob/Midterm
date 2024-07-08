@@ -1,3 +1,4 @@
+import firestore from '@react-native-firebase/firestore';
 const flights = [
     {
         id: 1,
@@ -7,6 +8,7 @@ const flights = [
         returnDate: "2024-07-18",
         departureTime: "08:00",
         landingTime: "11:00",
+        arrivalTime: "12:00",
         price: 300,
         seatMatrix: [
             [1, 0, 1, 1,  1, 1, 1, 1],
@@ -26,6 +28,7 @@ const flights = [
         returnDate: "2024-07-11",
         departureTime: "10:30",
         landingTime: "13:30",
+        arrivalTime: "14:30",
         price: 250,
         seatMatrix: [
             [1, 1, 1, 1, 1, 1, 1, 1],
@@ -45,6 +48,7 @@ const flights = [
         returnDate: "2024-07-11",
         departureTime: "09:45",
         landingTime: "11:45",
+        arrivalTime: "12:45",
         price: 200,
         seatMatrix: [
             [1, 1, 1, 1, 1, 1, 1, 1],
@@ -65,6 +69,7 @@ const flights = [
         returnDate: "2024-07-11",
         departureTime: "14:00",
         landingTime: "23:00",
+        arrivalTime: "00:00",
         price: 600,
         seatMatrix: [
             [0, 1, 1, 1, 1, 1, 1, 1],
@@ -84,6 +89,7 @@ const flights = [
         returnDate: "2024-07-11",
         departureTime: "07:30",
         landingTime: "10:30",
+        arrivalTime: "11:30",
         price: 180,
         seatMatrix: [
             [1, 1, 1, 1, 1, 1, 1, 1],
@@ -103,6 +109,7 @@ const flights = [
         returnDate: "2024-07-11",
         departureTime: "11:15",
         landingTime: "13:15",
+        arrivalTime: "14:15",
         price: 220,
         seatMatrix: [
             [1, 1, 1, 1, 1, 1, 1, 1],
@@ -123,6 +130,7 @@ const flights = [
         returnDate: "2024-07-11",
         departureTime: "18:00",
         landingTime: "22:00",
+        arrivalTime: "23:00",
         price: 400,
         seatMatrix: [
             [1, 1, 1, 1, 1, 1, 1, 1],
@@ -142,6 +150,7 @@ const flights = [
         returnDate: "2024-07-11",
         departureTime: "09:30",
         landingTime: "15:30",
+        arrivalTime: "16:30",
         price: 500,
         seatMatrix: [
             [1, 1, 1, 1, 1, 1, 1, 1],
@@ -161,6 +170,7 @@ const flights = [
         returnDate: "2024-07-11",
         departureTime: "13:00",
         landingTime: "18:00",
+        arrivalTime: "19:00",
         price: 350,
         seatMatrix: [
             [1, 1, 1, 1, 1, 1, 1, 1],
@@ -180,6 +190,7 @@ const flights = [
         returnDate: "2024-07-17",
         departureTime: "08:45",
         landingTime: "15:45",
+        arrivalTime: "16:45",
         price: 450,
         seatMatrix: [
             [1, 1, 1, 1, 1, 1, 1, 1],
@@ -199,6 +210,7 @@ const flights = [
         returnDate: "2024-07-18",
         departureTime: "12:30",
         landingTime: "14:30",
+        arrivalTime: "15:30",
         price: 180,
         seatMatrix: [
             [1, 1, 1, 1, 1, 1, 1, 1],
@@ -218,6 +230,7 @@ const flights = [
         returnDate: "2024-07-9",
         departureTime: "09:00",
         landingTime: "12:00",
+        arrivalTime: "13:00",
         price: 300,
         seatMatrix: [
             [1, 1, 1, 1, 1, 1, 1, 1],
@@ -237,6 +250,7 @@ const flights = [
         returnDate: "2024-07-10",
         departureTime: "14:15",
         landingTime: "17:15",
+        arrivalTime: "18:15",
         price: 200,
         seatMatrix: [
             [1, 1, 1, 1, 1, 1, 1, 1],
@@ -256,6 +270,7 @@ const flights = [
         returnDate: "2024-07-11",
         departureTime: "11:00",
         landingTime: "14:00",
+        arrivalTime: "15:00",
         price: 250,
         seatMatrix: [
             [1, 1, 1, 1, 1, 1, 1, 1],
@@ -275,6 +290,7 @@ const flights = [
         returnDate: "2024-07-11",
         departureTime: "07:00",
         landingTime: "11:00",
+        arrivalTime: "12:00",
         price: 180,
         seatMatrix: [
             [1, 1, 1, 1, 1, 1, 1, 1],
@@ -291,6 +307,9 @@ const flights = [
         destination: "Los Angeles",
         date: "2024-07-15",
         returnDate: "2024-07-22",
+        departureTime: "07:00",
+        landingTime: "11:00",
+        arrivalTime: "12:00",
         price: 300,
         seatMatrix: [
             [1, 0, 1, 1, 1, 1, 1, 1],
@@ -308,6 +327,9 @@ const flights = [
         destination: "Miami",
         date: "2024-08-10",
         returnDate: "2024-08-17",
+        departureTime: "07:00",
+        landingTime: "11:00",
+        arrivalTime: "12:00",
         price: 250,
         seatMatrix: [
             [1, 1, 1, 1, 1, 1, 1, 1],
@@ -325,6 +347,9 @@ const flights = [
         destination: "Chicago",
         date: "2024-09-05",
         returnDate: "2024-09-12",
+        departureTime: "07:00",
+        landingTime: "11:00",
+        arrivalTime: "12:00",
         price: 200,
         seatMatrix: [
             [1, 1, 1, 1, 1, 1, 1, 1],
@@ -342,6 +367,9 @@ const flights = [
         destination: "Las Vegas",
         date: "2024-10-15",
         returnDate: "2024-10-22",
+        departureTime: "07:00",
+        landingTime: "11:00",
+        arrivalTime: "12:00",
         price: 180,
         seatMatrix: [
             [1, 1, 1, 1, 1, 1, 1, 1],
@@ -359,6 +387,9 @@ const flights = [
         destination: "Las Vegas",
         date: "2024-11-10",
         returnDate: "2024-11-17",
+        departureTime: "07:00",
+        landingTime: "11:00",
+        arrivalTime: "12:00",
         price: 400,
         seatMatrix: [
             [1, 1, 1, 1, 1, 1, 1, 1],
@@ -376,6 +407,9 @@ const flights = [
         destination: "Los Angeles",
         date: "2024-12-01",
         returnDate: "2024-12-08",
+        departureTime: "07:00",
+        landingTime: "11:00",
+        arrivalTime: "12:00",
         price: 500,
         seatMatrix: [
             [1, 1, 1, 1, 1, 1, 1, 1],
@@ -393,6 +427,9 @@ const flights = [
         destination: "Los Angeles",
         date: "2025-01-10",
         returnDate: "2025-01-17",
+        departureTime: "07:00",
+        landingTime: "11:00",
+        arrivalTime: "12:00",
         price: 280,
         seatMatrix: [
             [1, 1, 1, 1, 1, 1, 1, 1],
@@ -410,6 +447,9 @@ const flights = [
         destination: "Chicago",
         date: "2025-02-20",
         returnDate: "2025-02-27",
+        departureTime: "07:00",
+        landingTime: "11:00",
+        arrivalTime: "12:00",
         price: 350,
         seatMatrix: [
             [1, 0, 1, 1, 0, 1, 1, 1],
@@ -423,14 +463,12 @@ const flights = [
     },
     // Add more entries as needed
 ];
+
 flights.forEach(flight => {
     // Reverse each row in the seatMatrix
     flight.seatMatrix.forEach(row => {
         row.reverse();
     });
-
-    // Reverse the entire seatMatrix array if needed
-    // flight.seatMatrix.reverse();
 
     let availableSeats = flight.availableSeats;
     let totalSeats = flight.seatMatrix.flat().length;

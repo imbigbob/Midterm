@@ -14,7 +14,6 @@ const FilterPage = ({ route }) => {
   const [FPminPrice, setFPMinPrice] = useState(filterData.minPrice);
   const [FPmaxPrice, setFPMaxPrice] = useState(filterData.maxPrice);
   const [FPsort, setFPSort] = useState(filterData.sort);
-  const buttonStyle = 0;
   const timeMappingValues = {
     '06AM-12PM': 1,
     '12PM-06PM': 2,
@@ -30,7 +29,11 @@ const FilterPage = ({ route }) => {
     //   alert('Departure time must be smaller than Arrival time');
     //   return;
     // }
-
+    filterData.setDeparture(FPdepartureTime);
+    filterData.setArrival(FParrivalTime);
+    filterData.setMinPrice(FPminPrice);
+    filterData.setMaxPrice(FPmaxPrice);
+    filterData.setSort(FPsort);
     navigation.goBack();
   };
   const ResetValues = () => {
@@ -39,8 +42,8 @@ const FilterPage = ({ route }) => {
     setFPSort();
     setFPMinPrice(50);
     setFPMaxPrice(250);
-    filterData.setDeparture();
-    filterData.setArrival();
+    filterData.setDeparture('');
+    filterData.setArrival('');
     filterData.setMinPrice(50);
     filterData.setMaxPrice(250);
     filterData.setSort();

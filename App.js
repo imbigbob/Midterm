@@ -26,7 +26,8 @@ function App() {
             TextAlign: 'center'
           }}
           />
-          <Stack.Screen name="FlightPage" component={FlightPage} />
+          <Stack.Screen name="FlightPage" component={FlightPage}
+          options={ {title :'Flight Booking', headerShown: true, headerTitleAlign: 'center'}} />
           <Stack.Screen name="SelectedSeatPage" component={SelectedSeatPage}
             options={{
               title: 'Selected Seats', headerShown: true, headerTitleAlign: 'center'

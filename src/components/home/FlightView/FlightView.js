@@ -4,7 +4,7 @@ import { View, ScrollView, StyleSheet, Dimensions, TouchableOpacity, ImageBackgr
 import { icons } from '../../../../constants';
 import { useNavigation } from '@react-navigation/native';
 
-import flights from '../../../../assets/FlightData';
+
 
 const FlightView = ({ info, people }) => {
   const navigation = useNavigation();
