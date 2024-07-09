@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, Button, TextInput, TouchableOpacity } from 'react-native';
+import { View, Text, Button, TextInput, TouchableOpacity,StyleSheet } from 'react-native';
 import auth from '@react-native-firebase/auth';
 import { useNavigation } from '@react-navigation/native';
 
@@ -8,6 +8,7 @@ function Auth() {
   const [user, setUser] = useState();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [resetEmail, setResetEmail] = useState('');
   const [error, setError] = useState('');
   const [message, setMessage] = useState('');
   const navigation = useNavigation();
@@ -41,6 +42,7 @@ function Auth() {
       .then(() => {
         console.log('User account created & signed in!');
         setError('');
+        
       })
       .catch(error => {
         if (error.code === 'auth/email-already-in-use') {
@@ -69,30 +71,55 @@ function Auth() {
       });
   };
 
+  const resetPassword = () => {
+    auth()
+      .sendPasswordResetEmail(resetEmail)
+      .then(() => {
+        console.log('Password reset email sent!');
+        setMessage('Password reset email sent!');
+        setError('');
+      })
+      .catch(error => {
+        console.error(error);
+        setError(error.message);
+      });
+  };
+
   if (initializing) return null;
 
   if (!user) {
     return (
-      <View>
-        <Text>Login</Text>
+      <View >
+      <View style={{ justifyContent:'center',alignItems:'center'}}>
+        <Text style={{ fontStyle: 'Poppins', fontWeight: 'SemiBold', fontSize: 20,marginTop:20 }}>Login</Text>
+        </View>
+        <Text style={styles.textEdit}>Email</Text>
         <TextInput
-          placeholder="Email"
+          placeholder="abc@gmail.com"
           value={email}
           onChangeText={setEmail}
-          style={{ borderWidth: 1, marginBottom: 8 }}
+          style={styles.input}
         />
+        <Text style={styles.textEdit}>Password</Text>
         <TextInput
           placeholder="Password"
           value={password}
           onChangeText={setPassword}
           secureTextEntry
-          style={{ borderWidth: 1, marginBottom: 8 }}
+          style={styles.input}
         />
-        <Button title="Login" onPress={login} />
-        <Button title="Create User" onPress={createUser} />
+        <View style={{ justifyContent:'center',alignItems:'center',padding:10}}>
+        <TouchableOpacity style={styles.button} 
+         onPress={login} >
+          <Text style={styles.textButton}>Login</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.button}  onPress={createUser} >
+          <Text style={styles.textButton}>Create Account</Text>
+          </TouchableOpacity>
+          </View>
         {error ? <Text style={{ color: 'red' }}>{error}</Text> : null}
         <TouchableOpacity onPress={() => navigation.navigate('ForgotPassword')}>
-          <Text style={{ color: 'blue', marginTop: 10 }}>Forgot Password?</Text>
+          <Text style={{ color: 'grey', marginTop: 10, }}>Forgot Password?</Text>
         </TouchableOpacity>
         {message ? <Text style={{ color: 'green' }}>{message}</Text> : null}
       </View>
@@ -107,5 +134,58 @@ function Auth() {
     </View>
   );
 }
-
+const styles = StyleSheet.create({
+  container: {
+    alignItems: 'center',
+  },
+  input: {
+    borderWidth: 1,
+    borderColor: 'white',
+    padding: 10,
+    marginVertical: 5,
+    backgroundColor: 'white',
+    borderRadius: 10,
+    marginLeft: 10,
+  },
+  button: {
+    width: 343,
+    height: 60,
+    backgroundColor: '#FEA36B',
+    borderRadius: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom:10
+  },
+  textButton: {
+    color: 'white',
+    fontSize: 20,
+    fontWeight: '700',
+    alignItems: 'center',
+  },
+  title: {
+    fontSize: 10,
+    fontWeight: '400',
+    color: '#727272',
+    marginLeft: 10,
+  },
+  box: {
+    width: 343,
+    height: 60,
+    backgroundColor: 'white',
+    justifyContent: 'center',
+    marginBottom: 10,
+    borderRadius: 10,
+  },
+  textEdit: {
+    color: '#727272',
+    fontSize: 10,
+    fontWeight: '400',
+    alignItems: 'center',
+    marginBottom: 5,
+    marginLeft: 10,
+  },
+  text: {
+    marginLeft: 10,
+  },
+});
 export default Auth;

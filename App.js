@@ -11,9 +11,10 @@ import BoardingPage from './src/screens/BoardingPage/BoardingPage';
 import SearchResultsScreen from './src/screens/SearchPage/SearchPage';
 import FilterPage from './src/screens/FilterPage/FilterPage';
 import PersonalInformation from './src/screens/PersonalInformation/PersonalInformation';
-
 import ForgotPassword from './src/screens/ForgotPassword';
 import Auth from './src/screens/Auth';
+
+import Profile from './src/screens/Profile';
 import auth from '@react-native-firebase/auth';
 
 const Stack = createNativeStackNavigator();
@@ -37,7 +38,7 @@ function App() {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="TabNavigator">
+        <Stack.Navigator initialRouteName={user ? "TabNavigator" : "Auth"}>
           {user ? (
             <>
               <Stack.Screen name="TabNavigator" component={TabNavigator} options={{ headerShown: false }} />
@@ -52,38 +53,15 @@ function App() {
                 options={{ title: 'Flight Booking', headerShown: true, headerTitleAlign: 'center' }}
               />
               <Stack.Screen
-                name="SelectedSeatPage"
-                component={SelectedSeatPage}
-                options={{ title: 'Selected Seats', headerShown: true, headerTitleAlign: 'center' }}
-              />
-              <Stack.Screen
-                name="BoardingPage"
-                component={BoardingPage}
-                options={{ title: 'Boarding', headerShown: true, headerTitleAlign: 'center' }}
-              />
-              <Stack.Screen
-                name="SearchResults"
-                component={SearchResultsScreen}
-                options={{ title: 'Search Results', headerShown: true, headerTitleAlign: 'center' }}
-              />
-              <Stack.Screen
-                name="FilterPage"
-                component={FilterPage}
-                options={{ title: 'Filters', headerShown: true, headerTitleAlign: 'center' }}
-              />
-              <Stack.Screen
-                name="PersonalInformation"
-                component={PersonalInformation}
-                options={{ title: 'Personal Information', headerShown: true, headerTitleAlign: 'center' }}
+                name="Profile"
+                component={Profile}
+                options={{ title: 'Profile', headerShown: true, headerTitleAlign: 'center' }}
               />
             </>
           ) : (
             <>
-              <Stack.Screen
-                name="Auth"
-                component={Auth}
-                options={{ headerShown: false }}
-              />
+              <Stack.Screen name="Auth" component={Auth} options={{ headerShown: false }} />
+
               <Stack.Screen
                 name="ForgotPassword"
                 component={ForgotPassword}

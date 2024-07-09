@@ -106,7 +106,7 @@ const ProfilePage = () => {
         <Text style={{ fontStyle: 'Poppins', fontWeight: 'SemiBold', fontSize: 20, color: 'black' }}>Settings</Text>
       </View>
       <View style={{ marginBottom: 10,justifyContent:'center',alignItems:'center'}}>
-        <TouchableOpacity style={{width:300,height:60,backgroundColor:COLORS.peach}} onPress={logoff}>
+        <TouchableOpacity style={{width:300,height:60,backgroundColor:COLORS.peach,justifyContent:'center',alignItems:'center',borderRadius:20}} onPress={logoff}>
           <Text style={{ fontStyle: 'Poppins', fontWeight: 'SemiBold', fontSize: 20, color: 'white' }}>Logoff</Text>
         </TouchableOpacity>
       </View>
