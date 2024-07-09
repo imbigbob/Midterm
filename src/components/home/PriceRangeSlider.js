@@ -6,8 +6,7 @@ const PriceRangeSlider = ({
   maxFPPrice,
   setMinPrice,
   setMaxPrice,
-  setMinPrevious,
-  setMaxPrevious
+
 }) => {
   const [low, setLow] = useState(minFPPrice);
   const [high, setHigh] = useState(maxFPPrice);

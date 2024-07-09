@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Image, ActivityIndicator } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import firestore from '@react-native-firebase/firestore';
 
 import DateButton from '../../components/home/DateButton.js/DateButton';
-import flights from '../../../assets/FlightData';
 import { SIZES, icons } from '../../../constants';
 import FlightView from '../../components/home/FlightView/FlightView';
+import fetchFlightsFromFirestore from '../../../assets/FetchData';
 
 const FlightPage = ({ route }) => {
   const navigation = useNavigation();
@@ -19,6 +20,8 @@ const FlightPage = ({ route }) => {
   const [minPrice, setMinPrice] = useState(50);
   const [maxPrice, setMaxPrice] = useState(1000);
   const [sort, setSort] = useState('');
+  const [flights, setFlights] = useState([]);
+  const [loading, setLoading] = useState(true); // Add loading state
   const initialStartDate = new Date(data.startDate);
   const filterData = {
     departureTime,
@@ -32,15 +35,7 @@ const FlightPage = ({ route }) => {
     setMaxPrice,
     setSort,
   };
-  const timeMappingValues = {
-    '06AM-12PM': [6, 12],
-    '12PM-06PM': [12, 18],
-    '06PM-12AM': [18, 24],
-    '12AM-06AM': [0, 6],
-  };
-  const getTimes = (value) => {
-    const time=value.slice(0,2);
-  };
+
   const handleFilter = () => {
     navigation.navigate('FilterPage', { filterData });
   };
@@ -62,11 +57,13 @@ const FlightPage = ({ route }) => {
     const formattedEndDate = formatDate(endDate);
     const formattedStartDate = formatDate(startDate);
     for (let item of flights) {
-      if (item.date === formattedStartDate &&
+      if (
+        item.date === formattedStartDate &&
         item.returnDate === formattedEndDate &&
         item.departure === data.departure &&
         item.destination === data.destination &&
-        data.people <= item.availableSeats)
+        data.people <= item.availableSeats
+      )
         count++;
     }
     return count;
@@ -76,12 +73,13 @@ const FlightPage = ({ route }) => {
     try {
       const formattedEndDate = formatDate(endDate);
       const formattedStartDate = formatDate(startDate);
-      const filteredFlights = flights.filter(item =>
-        item.date === formattedStartDate &&
-        item.returnDate === formattedEndDate &&
-        item.departure === data.departure &&
-        item.destination === data.destination &&
-        data.people <= item.availableSeats
+      const filteredFlights = flights.filter(
+        (item) =>
+          item.date === formattedStartDate &&
+          item.returnDate === formattedEndDate &&
+          item.departure === data.departure &&
+          item.destination === data.destination &&
+          data.people <= item.availableSeats
       );
       return filteredFlights;
     } catch (error) {
@@ -97,6 +95,7 @@ const FlightPage = ({ route }) => {
       setCount(filteredFlights.length);
     }
   };
+
   const mapTimeToRange = (time) => {
     const hour = parseInt(time.slice(0, 2), 10);
     if (hour >= 6 && hour < 12) return '06AM-12PM';
@@ -105,82 +104,122 @@ const FlightPage = ({ route }) => {
     if (hour >= 0 && hour < 6) return '12AM-06AM';
     return '';
   };
-  useEffect(() => {
-    const count = checkFlight(startDate, endDate);
-    console.log(count);
-    setCount(count);
-  }, [startDate, endDate]);
 
   useEffect(() => {
-    const filteredFlights = getFlightInfo(startDate, endDate);
-    if (filteredFlights) {
-      setInfo(filteredFlights);
-    }
-  }, [route]);
+    const fetchFlights = async () => {
+      const flightData = await fetchFlightsFromFirestore();
+      setFlights(flightData);
+      setLoading(false); // Set loading to false after data is fetched
+    };
+    fetchFlights();
+  }, []);
 
   useEffect(() => {
-    const filteredFlights = getFlightInfo(startDate, endDate);
-    if (filteredFlights) {
-      setInfo(filteredFlights);
+    if (!loading) {
+      const count = checkFlight(startDate, endDate);
+      setCount(count);
     }
-    if(sort === 'Price'){
-      
-      setInfo((prevInfo) => [...prevInfo].sort((a, b) => a.price - b.price));
-      setCount(filteredFlights.length);
-    }
-    else if (sort === 'Lowest fare') {
-      // Sort and then take the first element, wrapping it in an array
-      const sorted = [...info].sort((a, b) => a.price - b.price);
-      if (sorted.length >= 1) {
-        setInfo([sorted[0]]);
-        setCount(1);
+  }, [startDate, endDate, loading]);
+
+  useEffect(() => {
+    if (!loading) {
+      const filteredFlights = getFlightInfo(startDate, endDate);
+      if (filteredFlights) {
+        setInfo(filteredFlights);
       }
     }
+  }, [route, loading]);
 
-  }, [sort]);
   useEffect(() => {
-    // Fetch and set the initial flight info based on startDate and endDate
-    const filteredFlights = getFlightInfo(startDate, endDate);
-    if (filteredFlights) {
+    if (!loading) {
+      const filteredFlights = getFlightInfo(startDate, endDate);
+      if (filteredFlights) {
+        setInfo(filteredFlights);
+        console.log('sort', info);
+      }
+      if (sort === 'Price') {
+        setInfo((prevInfo) => [...prevInfo].sort((a, b) => a.price - b.price));
+        setCount(filteredFlights.length);
+      } else if (sort === 'Lowest fare') {
+        const sorted = [...info].sort((a, b) => a.price - b.price);
+        if (sorted.length >= 1) {
+          setInfo([sorted[0]]);
+          setCount(1);
+        }
+      }
+
+    }
+  }, [sort, loading]);
+
+  useEffect(() => {
+    if (!loading) {
+
+      const filteredFlights = getFlightInfo(startDate, endDate);
+      console.log(filteredFlights);
+      if (filteredFlights) {
+        setInfo(filteredFlights);
+        setCount(filteredFlights.length);
+      }
+    }
+  }, [startDate, endDate, route, loading]);
+
+  useEffect(() => {
+    if (!loading) {
+      // Fetch flights info and set as default
+      const filteredFlights = getFlightInfo(startDate, endDate);
       setInfo(filteredFlights);
       setCount(filteredFlights.length);
-      console.log('Initial filtered flights:', filteredFlights);
-    }
-  }, [startDate, endDate, route]);
-  
-  useEffect(() => {
-    // Filter the flight info based on minPrice and maxPrice
-    console.log('Filtering info based on price range:', minPrice, maxPrice);
-    if (info.length > 0) {
-      const filteredInfo = info.filter(item => item.price >= minPrice && item.price <= maxPrice);
+
+      // Apply price filter
+      const filteredInfo = filteredFlights.filter(
+        (item) => item.price >= minPrice && item.price <= maxPrice
+      );
       setInfo(filteredInfo);
       setCount(filteredInfo.length);
-      console.log('Filtered info:', filteredInfo);
-    } else {
-      console.log('Info is empty:', info);
     }
-  }, [minPrice, maxPrice]);
-  
- 
-  
-
+  }, [minPrice, maxPrice, loading]);
 
   // useEffect(() => {
-  //   if (info.length > 0) {
-  //     const filteredByDeparture = info.filter(item => {
-  //       const mappedDepartureTime = mapTimeToRange(item.departureTime);
-  //       return mappedDepartureTime === departureTime;
-  //     });
+  //   if (!loading) {
+  //     const filteredFlights = getFlightInfo(startDate, endDate);
+  //     setInfo(filteredFlights);
+  //     setCount(filteredFlights.length);
 
-  //     const filteredByArrival = filteredByDeparture.filter(item => {
-  //       const mappedArrivalTime = mapTimeToRange(item.arrivalTime);
-  //       return mappedArrivalTime === arrivalTime;
-  //     });
-
-  //     setInfo(filteredByArrival);
-  //     setCount(filteredByArrival.length);
+  //     if (info.length > 0&& departureTime !== '') {
+  //       const filteredByDeparture = info.filter(item => {
+  //         const mappedDepartureTime = mapTimeToRange(item.departureTime);
+  //         console.log('departure', departureTime);
+  //         return mappedDepartureTime === departureTime;
+  //       });
+  //       setInfo(filteredByDeparture);
+  //       setCount(filteredByDeparture.length);
+  //     }
   //   }
-  // }, [departureTime, arrivalTime]);
+  // }, [departureTime, loading]);
+
+  // useEffect(() => {
+  //   if (!loading) {
+
+  //     if (info.length > 0 && arrivalTime !== '') {
+  //       const filteredByArrival = info.filter(item => {
+  //         const mappedArrivalTime = mapTimeToRange(item.arrivalTime);
+  //         console.log('arrival', arrivalTime);
+  //         return mappedArrivalTime === arrivalTime;
+          
+  //       });
+  //       setInfo(filteredByArrival);
+  //       setCount(filteredByArrival.length);
+  //     }
+  //   }
+  // }, [arrivalTime, loading]);
+
+  if (loading) {
+    return (
+      <View style={styles.loadingContainer}>
+        <ActivityIndicator size="large" color="#0000ff" />
+      </View>
+    );
+  }
 
   return (
     <View style={{ flex: 1 }}>
@@ -213,15 +252,15 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: '#ccc',
     flexDirection: 'row',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
   },
   dateText: {
     fontSize: 18,
-    color: 'black'
+    color: 'black',
   },
   dayText: {
     fontSize: 18,
-    color: 'gray'
+    color: 'gray',
   },
   button: {
     width: 40,
@@ -235,6 +274,11 @@ const styles = StyleSheet.create({
     width: 20,
     height: 20,
     tintColor: '#fff',
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 

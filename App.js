@@ -57,6 +57,31 @@ function App() {
                 component={Profile}
                 options={{ title: 'Profile', headerShown: true, headerTitleAlign: 'center' }}
               />
+              <Stack.Screen
+                name="SelectedSeatPage"
+                component={SelectedSeatPage}
+                options={{ title: 'Selected Seats', headerShown: true, headerTitleAlign: 'center' }}
+              />
+              <Stack.Screen
+                name="BoardingPage"
+                component={BoardingPage}
+                options={{ title: 'Boarding', headerShown: true, headerTitleAlign: 'center' }}
+              />
+              <Stack.Screen
+                name="SearchResults"
+                component={SearchResultsScreen}
+                options={{ title: 'Search Results', headerShown: true, headerTitleAlign: 'center' }}
+              />
+              <Stack.Screen
+                name="FilterPage"
+                component={FilterPage}
+                options={{ title: 'Filters', headerShown: true, headerTitleAlign: 'center' }}
+              />
+              <Stack.Screen
+                name="PersonalInformation"
+                component={PersonalInformation}
+                options={{ title: 'Personal Information', headerShown: true, headerTitleAlign: 'center' }}
+              />
             </>
           ) : (
             <>

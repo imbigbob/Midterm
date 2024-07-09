@@ -1,12 +1,51 @@
 import React from 'react';
 import { ScrollView, View, Image, ImageBackground, Text, TouchableOpacity,StyleSheet } from 'react-native';
 import { icons } from '../../../constants';
-import {  useState } from 'react';
+import {  useState,useEffect } from 'react';
+import firestore from '@react-native-firebase/firestore';
 const BoardingPage = ({ route }) => {
   const { flight, chosenSeats} = route.params;
   const rowMapping = ['A', 'B', 'C', 'D'];
   const dataSeatArray = Object.values(chosenSeats);
+ // Function to update the flight document in Firestore
+ const updateFlight = async (id, updatedFlight) => {
+  try {
+    await firestore().collection('Flight').doc(id.toString()).update(updatedFlight);
+    console.log('Flight successfully updated!');
+  } catch (error) {
+    console.error('Error updating flight: ', error);
+  }
+};
+
+useEffect(() => {
+  // Update the seat matrices based on chosenSeats
+  dataSeatArray.forEach(seat => {
+    const { rowIndex, seatIndex } = seat;
+
+    if (flight.seatMatrix && flight.seatMatrix[rowIndex]) {
+      console.log(rowIndex, seatIndex)
+      flight.seatMatrix[rowIndex][seatIndex] = 0.5; 
+      console.log(flight.seatMatrix);
+    }
+    console.log(dataSeatArray.length);
+    console.log(flight.availableSeats);
+    
+    
+  });
+  flight.availableSeats-=dataSeatArray.length;
+  console.log(flight.availableSeats);
+  console.log(flight.id);
+  // Save the updated flight back to Firestore
+  updateFlight(flight.id, {
+    seatRow1: flight.seatMatrix[0],
+    seatRow2: flight.seatMatrix[1],
+    seatRow3: flight.seatMatrix[2],
+    seatRow4: flight.seatMatrix[3],
+    availableSeats: flight.availableSeats,
+  });
+}, []);
   return (
+
     <View style={{ flex: 1 }}>
 
       <View style={{ flex: 9 }}>
@@ -80,10 +119,10 @@ const BoardingPage = ({ route }) => {
         </ScrollView>
       </View>
       
-      <View style={{ flex: 1 }}>
+      <View style={{ flex: 1,padding:20 }}>
         <TouchableOpacity style={{
           backgroundColor: '#FEA36B'
-          , justifyContent: 'center', alignItems: 'center', height: 50, borderRadius: 20, padding: 20
+          , justifyContent: 'center', alignItems: 'center', height: 60, borderRadius: 20
         }}>
           <Text style={{ color: 'white' }}>Download Ticket</Text>
         </TouchableOpacity>

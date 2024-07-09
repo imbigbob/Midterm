@@ -18,6 +18,7 @@ const SelectedSeatPage = ({ route }) => {
 
     useEffect(() => {
         setSeatMatrix(flight.seatMatrix);
+        console.log(flight.seatMatrix);
         const updatedMatrix = [...flight.seatMatrix];
         for (let i = 0; i < updatedMatrix.length; i++) {
             for (let j = 0; j < updatedMatrix[i].length; j++) {
@@ -27,6 +28,7 @@ const SelectedSeatPage = ({ route }) => {
             }
         }
         setSeatMatrix(updatedMatrix);
+        console.log(updatedMatrix);
     }, [flight]);
 
     const handleSeatSelect = (rowIndex, seatIndex) => {
@@ -68,10 +70,12 @@ const SelectedSeatPage = ({ route }) => {
     };
 
     const checkNavigation = () => {
+
         if (countChosenSeat === Number(people)) {
             navigation.navigate('BoardingPage', { flight, chosenSeats });
         }
     }
+
 
     return (
         <View style={styles.container}>

@@ -81,7 +81,6 @@ const FilterPage = ({ route }) => {
 
       <PriceRangeSlider minFPPrice={FPminPrice} maxFPPrice={FPmaxPrice}
         setMinPrice={setFPMinPrice} setMaxPrice={setFPMaxPrice}
-        setMinPrevious={filterData.setMinPrice} setMaxPrevious={filterData.setMaxPrice}
       />
 
       <View style={{
