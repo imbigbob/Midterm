@@ -25,6 +25,9 @@ const SelectedSeatPage = ({ route }) => {
                 if (updatedMatrix[i][j] > 0.5) {
                     updatedMatrix[i][j] = 0;
                 }
+                if(flight.seatMatrix[i][j] > 0.5){
+                    updatedMatrix[i][j] = 0;
+                }
             }
         }
         setSeatMatrix(updatedMatrix);

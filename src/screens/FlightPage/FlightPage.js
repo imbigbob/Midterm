@@ -132,30 +132,8 @@ const FlightPage = ({ route }) => {
 
   useEffect(() => {
     if (!loading) {
-      const filteredFlights = getFlightInfo(startDate, endDate);
-      if (filteredFlights) {
-        setInfo(filteredFlights);
-        console.log('sort', info);
-      }
-      if (sort === 'Price') {
-        setInfo((prevInfo) => [...prevInfo].sort((a, b) => a.price - b.price));
-        setCount(filteredFlights.length);
-      } else if (sort === 'Lowest fare') {
-        const sorted = [...info].sort((a, b) => a.price - b.price);
-        if (sorted.length >= 1) {
-          setInfo([sorted[0]]);
-          setCount(1);
-        }
-      }
-
-    }
-  }, [sort, loading]);
-
-  useEffect(() => {
-    if (!loading) {
 
       const filteredFlights = getFlightInfo(startDate, endDate);
-      console.log(filteredFlights);
       if (filteredFlights) {
         setInfo(filteredFlights);
         setCount(filteredFlights.length);
@@ -165,19 +143,103 @@ const FlightPage = ({ route }) => {
 
   useEffect(() => {
     if (!loading) {
-      // Fetch flights info and set as default
       const filteredFlights = getFlightInfo(startDate, endDate);
-      setInfo(filteredFlights);
-      setCount(filteredFlights.length);
-
-      // Apply price filter
-      const filteredInfo = filteredFlights.filter(
+      //range price
+      let filteredInfo = filteredFlights.filter(
         (item) => item.price >= minPrice && item.price <= maxPrice
       );
+      //time
+      if (departureTime !== '') {
+        filteredInfo = filteredInfo.filter(item => {
+          const mappedDepartureTime = mapTimeToRange(item.departureTime);
+          return mappedDepartureTime === departureTime;
+        });
+      }
+      if (arrivalTime !== '') {
+        filteredInfo = filteredInfo.filter(item => {
+          const mappedArrivalTime = mapTimeToRange(item.arrivalTime);
+          console.log('arrival', item.arrivalTime);
+          return mappedArrivalTime === arrivalTime;
+        });
+      }
+      //sort
+
+      if (sort === 'Price') {
+        filteredInfo = [...filteredInfo].sort((a, b) => a.price - b.price);
+      } else if (sort === 'Lowest fare') {
+        filteredInfo = [...filteredInfo].sort((a, b) => a.price - b.price);
+        if (filteredInfo.length >= 1) {
+          filteredInfo = [filteredInfo[0]];
+        }
+      }
+      else if (sort === 'Departure time') {
+        filteredInfo = [...filteredInfo].sort((a, b) => {
+          const aTime = parseInt(a.departureTime.replace(':', ''), 10);
+          const bTime = parseInt(b.departureTime.replace(':', ''), 10);
+          return aTime - bTime;
+        });
+      }
+      else if (sort === 'Arrival time') {
+        filteredInfo = [...filteredInfo].sort((a, b) => {
+          const aTime = parseInt(a.arrivalTime.replace(':', ''), 10);
+          const bTime = parseInt(b.arrivalTime.replace(':', ''), 10);
+          return aTime - bTime;
+        });
+      }
+      else if (sort === 'Duration') {
+        filteredInfo = [...filteredInfo].sort((a, b) => {
+          const aDuration = computeDuration(a.departure, a.arrival);
+          const bDuration = computeDuration(b.departure, b.arrival);
+          const aTime = parseInt(aDuration.replace(':', ''), 10);
+          const bTime = parseInt(bDuration.replace(':', ''), 10);
+          return aTime - bTime;
+        });
+      }
+
       setInfo(filteredInfo);
       setCount(filteredInfo.length);
     }
-  }, [minPrice, maxPrice, loading]);
+  }, [sort, minPrice, maxPrice, loading, departureTime, arrivalTime]);
+
+  function computeDuration(departure, arrival) {
+    if (!departure || !arrival) return '00:00';  // Default to zero duration if times are invalid
+
+    const [depHours, depMinutes] = departure.split(':').map(Number);
+    const [arrHours, arrMinutes] = arrival.split(':').map(Number);
+
+    if (isNaN(depHours) || isNaN(depMinutes) || isNaN(arrHours) || isNaN(arrMinutes)) {
+      return '00:00';  // Default to zero duration if time values are not valid numbers
+    }
+
+    let durationHours = arrHours - depHours;
+    let durationMinutes = arrMinutes - depMinutes;
+
+    if (durationMinutes < 0) {
+      durationMinutes += 60;
+      durationHours -= 1;
+    }
+
+    if (durationHours < 0) {
+      durationHours += 24;
+    }
+
+    return `${String(durationHours).padStart(2, '0')}:${String(durationMinutes).padStart(2, '0')}`;
+  }
+
+  // useEffect(() => {
+  //   if (!loading) {
+  //     // Fetch flights info and set as default
+  //     const filteredFlights = getFlightInfo(startDate, endDate);
+
+
+  //     // Apply price filter
+  //     const filteredInfo = filteredFlights.filter(
+  //       (item) => item.price >= minPrice && item.price <= maxPrice
+  //     );
+  //     setInfo(filteredInfo);
+  //     setCount(filteredInfo.length);
+  //   }
+  // }, [minPrice, maxPrice, loading]);
 
   // useEffect(() => {
   //   if (!loading) {
@@ -205,7 +267,7 @@ const FlightPage = ({ route }) => {
   //         const mappedArrivalTime = mapTimeToRange(item.arrivalTime);
   //         console.log('arrival', arrivalTime);
   //         return mappedArrivalTime === arrivalTime;
-          
+
   //       });
   //       setInfo(filteredByArrival);
   //       setCount(filteredByArrival.length);
