@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { View, TextInput, TouchableOpacity, StyleSheet,Image } from 'react-native';
+import { View, TextInput, TouchableOpacity, StyleSheet, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import {icons} from '../../../../constants';
+import { icons } from '../../../../constants';
 
 const SearchComponent = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -35,6 +35,8 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     paddingHorizontal: 10,
     backgroundColor: '#fff',
+    marginLeft: 15,
+    marginRight: 15,
   },
   input: {
     flex: 1,

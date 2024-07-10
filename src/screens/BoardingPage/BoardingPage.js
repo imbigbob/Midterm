@@ -54,7 +54,6 @@ const BoardingPage = ({ route }) => {
   return (
 
     <View style={{ flex: 1 }}>
-
       <View style={{ flex: 9 }}>
         <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
           {dataSeatArray.map((seat, index) => (

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, View, TextInput, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { Image, View,ScrollView, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { COLORS, icons, SIZES, FONT, SHADOWS } from "../../../constants";
 import { useNavigation } from '@react-navigation/native';
 
@@ -15,6 +15,7 @@ const TransportPage = () => {
   const [destination, setTo] = React.useState('Los Angeles');
   const [startDate, setStartDate] = React.useState(new Date());
   const [endDate, setEndDate] = React.useState(new Date());
+  const [today] = React.useState(new Date());
   const [people, setPeople] = React.useState('');
   const [baby, setBaby] = React.useState('');
   const [pet, setPet] = React.useState('');
@@ -35,21 +36,21 @@ const TransportPage = () => {
   }
   const handleSearch = () => {
     if (
-      // departure === '' ||
-      // destination === '' ||
-      // people === '' ||
-      // baby === '' ||
-      // pet === '' ||
-      // luggage === '' ||
-      // selectedClass === '' ||
-      // selectedTransport === '' ||
-      // startDate === '' ||
+      departure === '' ||
+      destination === '' ||
+      people === '' ||
+      baby === '' ||
+      pet === '' ||
+      luggage === '' ||
+      selectedClass === '' ||
+      selectedTransport === '' ||
+      startDate === '' ||
       endDate === ''
     ) {
       alert('Please fill in all the required fields');
     }
     else if (
-      startDate > endDate
+      startDate > endDate || startDate < today || endDate < today
     ) {
       alert('Please select a valid date range');
     }

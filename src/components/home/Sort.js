@@ -2,9 +2,9 @@ import React from 'react';
 import { View, TouchableOpacity, StyleSheet, Text } from 'react-native';
 import { COLORS } from '../../../constants';
 
-const Sort = ({ values, selectedValue, setSelectedValue, setValuePrevious }) => {
+const Sort = ({ values, selectedValue, setSelectedValue }) => {
   return (
-    <View>      
+    <View style={{marginTop:15}}>      
         {values.map((value) => (
           <View style={{ flexDirection: 'row' }}>
           <TouchableOpacity
@@ -18,7 +18,7 @@ const Sort = ({ values, selectedValue, setSelectedValue, setValuePrevious }) => 
           >
             {selectedValue === value && <View style={styles.innerCircle} />}
           </TouchableOpacity>
-          <Text>{value}</Text>
+          <Text style={{alignItems:'center'}}>{value}</Text>
           </View>
         ))}
       

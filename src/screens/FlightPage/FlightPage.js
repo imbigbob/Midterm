@@ -226,55 +226,6 @@ const FlightPage = ({ route }) => {
     return `${String(durationHours).padStart(2, '0')}:${String(durationMinutes).padStart(2, '0')}`;
   }
 
-  // useEffect(() => {
-  //   if (!loading) {
-  //     // Fetch flights info and set as default
-  //     const filteredFlights = getFlightInfo(startDate, endDate);
-
-
-  //     // Apply price filter
-  //     const filteredInfo = filteredFlights.filter(
-  //       (item) => item.price >= minPrice && item.price <= maxPrice
-  //     );
-  //     setInfo(filteredInfo);
-  //     setCount(filteredInfo.length);
-  //   }
-  // }, [minPrice, maxPrice, loading]);
-
-  // useEffect(() => {
-  //   if (!loading) {
-  //     const filteredFlights = getFlightInfo(startDate, endDate);
-  //     setInfo(filteredFlights);
-  //     setCount(filteredFlights.length);
-
-  //     if (info.length > 0&& departureTime !== '') {
-  //       const filteredByDeparture = info.filter(item => {
-  //         const mappedDepartureTime = mapTimeToRange(item.departureTime);
-  //         console.log('departure', departureTime);
-  //         return mappedDepartureTime === departureTime;
-  //       });
-  //       setInfo(filteredByDeparture);
-  //       setCount(filteredByDeparture.length);
-  //     }
-  //   }
-  // }, [departureTime, loading]);
-
-  // useEffect(() => {
-  //   if (!loading) {
-
-  //     if (info.length > 0 && arrivalTime !== '') {
-  //       const filteredByArrival = info.filter(item => {
-  //         const mappedArrivalTime = mapTimeToRange(item.arrivalTime);
-  //         console.log('arrival', arrivalTime);
-  //         return mappedArrivalTime === arrivalTime;
-
-  //       });
-  //       setInfo(filteredByArrival);
-  //       setCount(filteredByArrival.length);
-  //     }
-  //   }
-  // }, [arrivalTime, loading]);
-
   if (loading) {
     return (
       <View style={styles.loadingContainer}>

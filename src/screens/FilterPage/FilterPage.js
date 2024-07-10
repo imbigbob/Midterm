@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, Dimensions,ScrollView } from "react-native";
 import { COLORS, SIZES } from "../../../constants";
 import PickTime from "../../components/home/PickTime/PickTime";
 import Sort from "../../components/home/Sort";
 import PriceRangeSlider from '../../components/home/PriceRangeSlider';
 import { useNavigation } from '@react-navigation/native';
+
+const WINDOW_HEIGHT = Dimensions.get('window').height;
 
 const FilterPage = ({ route }) => {
   const navigation = useNavigation();
@@ -50,7 +52,7 @@ const FilterPage = ({ route }) => {
   }
 
   return (
-    <View>
+    <ScrollView>
       <View style={{ height: 64 }}>
 
         <Text style={styles.time}>Departure</Text>
@@ -70,12 +72,13 @@ const FilterPage = ({ route }) => {
           setValuePrevious={filterData.setArrival}
         />
       </View>
-
+    
       <View>
+      <Text style={styles.time}>Sort by</Text>
         <Sort values={['Arrival time', 'Departure time', 'Price', 'Lowest fare', 'Duration']}
           selectedValue={FPsort}
           setSelectedValue={setFPSort}
-          setValuePrevious={filterData.setSort}
+         
         />
       </View>
 
@@ -97,24 +100,22 @@ const FilterPage = ({ route }) => {
         >
           <Text style={styles.selectedTextButton}>Done</Text>
         </TouchableOpacity>
-
-
       </View>
-    </View>
+    </ScrollView>
   );
 };
 //Arrival time  Departure time Price  Lowest fare Duration
 const styles = StyleSheet.create({
   time: {
+    marginTop: 10,
+    marginLeft: 20,
     fontSize: SIZES.medium,
     fontFamily: 'Poppins',
-    fontSIZE:40,
     fontWeight: 'bold',
   },
   textButton: {
     color: COLORS.peach,
     textAlign: 'center',
-    fontSIZE:40,
     fontWeight: '700',
   },
   selectedTextButton: {
